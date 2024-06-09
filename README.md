@@ -2,7 +2,6 @@
 Management Sales https://github.com/YogiTan00/Reseller
 
 # Prerequisites
-
 1. golang (v1.22.3 or above) | https://go.dev/doc/install
 2. Mysql database
 3. Protobuf Compiler | https://github.com/protocolbuffers/protobuf
