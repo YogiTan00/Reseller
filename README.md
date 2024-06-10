@@ -26,7 +26,7 @@ Management Sales https://github.com/YogiTan00/Reseller
 
 # Migration Mysql
 1. download and install golang-migrate -> https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
-2. migrate up service (e.g., service auth) -> \
+2. migrate up service (if needed) -> \
    `migrate -database "mysql://root:root@tcp(localhost:3306)/reseller" -path services/migrations/mysql up`
 3. create new migration (if needed) -> \
    `migrate create -ext sql -dir services/migrations/mysql create_product`
