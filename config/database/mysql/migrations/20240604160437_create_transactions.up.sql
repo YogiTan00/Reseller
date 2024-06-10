@@ -7,7 +7,7 @@ CREATE TABLE transactions (
     discount              FLOAT,
     admin_fee             FLOAT,
     add_admin_fee         FLOAT,
-    created_at            TIMESTAMP,
-    updated_at            TIMESTAMP,
+    created_at            DATETIME,
+    updated_at            DATETIME,
     PRIMARY KEY(id)
 )
