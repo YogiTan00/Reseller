@@ -6,7 +6,8 @@ CREATE TABLE products (
     image           VARCHAR(255),
     default_price   INT,
     price           INT,
-    created_at      DATETIME,
-    updated_at      DATETIME,
+    created_at      DATETIME DEFAULT NULL,
+    updated_at      DATETIME DEFAULT NULL,
+    deleted_at      DATETIME DEFAULT NULL,
     PRIMARY KEY(id)
 )

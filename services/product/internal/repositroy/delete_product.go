@@ -1,8 +1,17 @@
 package repositroy
 
-import "context"
+import (
+	"Reseller/services/product/internal/repositroy/models"
+	"context"
+	"time"
+)
 
 func (p ProductRepository) DeleteProduct(ctx context.Context, productId string) error {
-	//TODO implement me
-	panic("implement me")
+	tx := p.db.WithContext(ctx).Model(&models.Product{}).
+		Where("id = ?", productId).
+		Update("deleted_at", time.Now())
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
 }
