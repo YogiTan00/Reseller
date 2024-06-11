@@ -6,11 +6,11 @@ Management Sales https://github.com/YogiTan00/Reseller
 2. Mysql database
 3. Protobuf Compiler | https://github.com/protocolbuffers/protobuf
    - check program is it already installed => `protoc --version`
-4. Buf 
-   - `go install github.com/bufbuild/buf/cmd/buf@v1.28.1`
+4. Buf | https://connectrpc.com/docs/go/getting-started/ (v1.28.1 or above)
+   - `go install github.com/bufbuild/buf/cmd/buf@latest`
    - check program is it already installed => `buf --version`
 5. Mockery | https://github.com/vektra/mockery (v2.39.1 or above)
-   - `go install github.com/vektra/mockery/v2@v2.39.1`
+   - `go install github.com/vektra/mockery/v2@latest`
    - check program is it already installed => `mockery --version`
 
 ### Grpc

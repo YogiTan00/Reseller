@@ -1,0 +1,21 @@
+syntax = "proto3";
+package productPb;
+option go_package = "Reseller/proto;productPb";
+import "google/api/annotations.proto";
+
+service ProductService {
+  rpc CreateProduct(ProductRequest) returns (ProductResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/product/create",
+      body: "*"
+    };
+  }
+}
+
+message ProductRequest {
+
+}
+
+message ProductResponse {
+
+}
