@@ -1,4 +1,4 @@
-package repositroy
+package repository
 
 import (
 	"Reseller/services/product/domain/repository"
