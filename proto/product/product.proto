@@ -1,6 +1,6 @@
 syntax = "proto3";
 package productPb;
-option go_package = "Reseller/proto;productPb";
+option go_package = "reseller/proto;productPb";
 import "google/api/annotations.proto";
 
 service ProductService {
@@ -13,9 +13,9 @@ service ProductService {
 }
 
 message ProductRequest {
-
+  string id = 1;
 }
 
 message ProductResponse {
-
+  string id = 1;
 }
