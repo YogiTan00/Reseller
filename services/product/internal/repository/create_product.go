@@ -2,7 +2,7 @@ package repository
 
 import (
 	"Reseller/services/product/domain/entity"
-	"Reseller/services/product/internal/repositroy/mapper"
+	"Reseller/services/product/internal/repository/mapper"
 	"context"
 )
 

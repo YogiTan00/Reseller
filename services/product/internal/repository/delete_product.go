@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"Reseller/services/product/internal/repositroy/models"
+	"Reseller/services/product/internal/repository/models"
 	"context"
 	"time"
 )
