@@ -77,7 +77,7 @@ func NewMigration(cfg config.Config) {
 
 	m, err := migrate.NewWithDatabaseInstance(
 		"file://config/database/mysql/migrations",
-		"reseller",
+		cfg.DbName,
 		driver,
 	)
 	if err != nil {

@@ -9,4 +9,5 @@ func main() {
 	cfg := config.NewConfig()
 	_ = mysql.InitMysqlDB(cfg)
 	mysql.NewMigration(cfg)
+
 }
