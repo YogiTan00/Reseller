@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"Reseller/pkg/logger"
-	"Reseller/services/product/domain/repository"
-	"Reseller/services/product/domain/usecase"
+	"github.com/YogiTan00/Reseller/pkg/logger"
+	"github.com/YogiTan00/Reseller/services/product/domain/repository"
+	"github.com/YogiTan00/Reseller/services/product/domain/usecase"
 )
 
 type ProductUsecase struct {

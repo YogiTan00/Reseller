@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Reseller/config"
-	"Reseller/config/database/mysql"
+	"github.com/YogiTan00/Reseller/config"
+	"github.com/YogiTan00/Reseller/config/database/mysql"
 )
 
 func main() {

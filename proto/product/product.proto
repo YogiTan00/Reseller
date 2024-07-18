@@ -1,7 +1,7 @@
 syntax = "proto3";
 package productPb;
-option go_package = "reseller/proto;productPb";
-import "google/api/annotations.proto";
+option go_package = "github.com/YogiTan00/Reseller/proto;productPb";
+import "google/api/annotations/annotations.proto";
 
 service ProductService {
   rpc CreateProduct(ProductRequest) returns (ProductResponse) {

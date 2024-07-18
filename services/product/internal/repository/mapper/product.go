@@ -1,8 +1,8 @@
 package mapper
 
 import (
-	"Reseller/services/product/domain/entity"
-	"Reseller/services/product/internal/repository/models"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
+	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 )
 
 func ToModelProduct(data entity.Product) *models.Product {

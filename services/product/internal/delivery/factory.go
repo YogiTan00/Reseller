@@ -1,9 +1,9 @@
 package delivery
 
 import (
-	"Reseller/pkg/logger"
-	productPb "Reseller/proto/_generated/product"
-	"Reseller/services/product/domain/usecase"
+	"github.com/YogiTan00/Reseller/pkg/logger"
+	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
+	"github.com/YogiTan00/Reseller/services/product/domain/usecase"
 	"google.golang.org/grpc"
 )
 

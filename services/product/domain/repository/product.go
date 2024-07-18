@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"Reseller/services/product/domain/entity"
 	"context"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
 )
 
 type ProductRepositoryInterface interface {

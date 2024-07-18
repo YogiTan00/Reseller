@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"Reseller/services/product/internal/repository/models"
 	"context"
+	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 	"time"
 )
 

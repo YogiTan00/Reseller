@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"Reseller/services/product/domain/entity"
 	"context"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
 )
 
 func (p ProductUsecase) CreateProduct(ctx context.Context, prd entity.Product) error {

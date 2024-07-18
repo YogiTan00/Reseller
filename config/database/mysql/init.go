@@ -1,11 +1,11 @@
 package mysql
 
 import (
-	"Reseller/config"
-	"Reseller/pkg/logger"
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/YogiTan00/Reseller/config"
+	"github.com/YogiTan00/Reseller/pkg/logger"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
 	"net/url"
