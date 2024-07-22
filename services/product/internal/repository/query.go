@@ -1,7 +1,7 @@
-package repositroy
+package repository
 
 import (
-	"Reseller/services/product/domain/entity"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
 	"gorm.io/gorm"
 )
 

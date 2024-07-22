@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"Reseller/services/product/domain/entity"
-	"Reseller/services/product/internal/repositroy/mapper"
-	"Reseller/services/product/internal/repositroy/models"
 	"context"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
+	"github.com/YogiTan00/Reseller/services/product/internal/repository/mapper"
+	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 )
 
 func (p ProductRepository) GetDetailProduct(ctx context.Context, productId string) (*entity.ProductDto, error) {

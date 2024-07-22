@@ -1,11 +1,11 @@
-package repository
+package usecase
 
 import (
 	"context"
 	"github.com/YogiTan00/Reseller/services/product/domain/entity"
 )
 
-type ProductRepositoryInterface interface {
+type ProductUsecaseInterface interface {
 	CreateProduct(ctx context.Context, prd entity.Product) error
 	UpdateProduct(ctx context.Context, prd entity.Product) error
 	DeleteProduct(ctx context.Context, productId string) error

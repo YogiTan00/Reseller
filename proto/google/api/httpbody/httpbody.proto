@@ -1,5 +1,4 @@
-//https://github.com/googleapis/googleapis/tree/master
-// Copyright 2024 Google LLC
+// Copyright 2018 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
 syntax = "proto3";
 
@@ -46,15 +46,12 @@ option objc_class_prefix = "GAPI";
 //
 //       // The raw HTTP body is bound to this field.
 //       google.api.HttpBody http_body = 2;
-//
 //     }
 //
 //     service ResourceService {
-//       rpc GetResource(GetResourceRequest)
-//         returns (google.api.HttpBody);
-//       rpc UpdateResource(google.api.HttpBody)
-//         returns (google.protobuf.Empty);
-//
+//       rpc GetResource(GetResourceRequest) returns (google.api.HttpBody);
+//       rpc UpdateResource(google.api.HttpBody) returns
+//       (google.protobuf.Empty);
 //     }
 //
 // Example with streaming methods:
@@ -64,19 +61,18 @@ option objc_class_prefix = "GAPI";
 //         returns (stream google.api.HttpBody);
 //       rpc UpdateCalendar(stream google.api.HttpBody)
 //         returns (stream google.api.HttpBody);
-//
 //     }
 //
 // Use of this type only changes how the request and response bodies are
 // handled, all other features will continue to work unchanged.
 message HttpBody {
-// The HTTP Content-Type header value specifying the content type of the body.
-string content_type = 1;
+  // The HTTP Content-Type header value specifying the content type of the body.
+  string content_type = 1;
 
-// The HTTP request/response body as raw binary.
-bytes data = 2;
+  // The HTTP request/response body as raw binary.
+  bytes data = 2;
 
-// Application specific response metadata. Must be set in the first response
-// for streaming APIs.
-repeated google.protobuf.Any extensions = 3;
+  // Application specific response metadata. Must be set in the first response
+  // for streaming APIs.
+  repeated google.protobuf.Any extensions = 3;
 }

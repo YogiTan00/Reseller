@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"Reseller/services/product/domain/entity"
-	"Reseller/services/product/internal/repositroy/mapper"
 	"context"
+	"github.com/YogiTan00/Reseller/services/product/domain/entity"
+	"github.com/YogiTan00/Reseller/services/product/internal/repository/mapper"
 )
 
 func (p ProductRepository) CreateProduct(ctx context.Context, prd entity.Product) error {
