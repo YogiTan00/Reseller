@@ -7,7 +7,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 )
 
-func (p ProductRepository) GetListProduct(ctx context.Context, filter *entity.ProductFilter) ([]*entity.ProductDto, error) {
+func (p *ProductRepository) GetListProduct(ctx context.Context, filter *entity.ProductFilter) ([]*entity.ProductDto, error) {
 	var mdl []*models.Product
 	txQuery := p.db.WithContext(ctx).Model(mdl)
 	tx := p.txQueryProduct(txQuery, filter).Find(&mdl)

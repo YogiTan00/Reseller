@@ -66,11 +66,6 @@ func (l *Logger) CreateNewLog() {
 	}
 	defer file.Close()
 	l.log = log.New(file, now.Format(time.DateTime), log.LstdFlags)
-	//l2.Out = os.Stdout
-	//l2.SetFormatter(&logrus.TextFormatter{
-	//	FullTimestamp:    false,
-	//	DisableTimestamp: true,
-	//})
 	if !l.isError && l.StatusCode == 0 {
 		l.StatusCode = http.StatusOK
 	}
@@ -88,7 +83,6 @@ func (l *Logger) CreateNewLog() {
 		l.Info(nil)
 	}
 
-	//data.createNewProcessMetrics(now)
 }
 
 func (l *Logger) MarkAsError() {

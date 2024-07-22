@@ -12,13 +12,13 @@ type ProductUsecase struct {
 }
 
 type ProductUsecaseFactory struct {
-	l           logger.Logger
-	repoProduct repository.ProductRepositoryInterface
+	L           logger.Logger
+	RepoProduct repository.ProductRepositoryInterface
 }
 
 func (prod *ProductUsecaseFactory) Create() usecase.ProductUsecaseInterface {
 	return &ProductUsecase{
-		l:           prod.l,
-		repoProduct: prod.repoProduct,
+		l:           prod.L,
+		repoProduct: prod.RepoProduct,
 	}
 }

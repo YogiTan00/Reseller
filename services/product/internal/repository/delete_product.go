@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (p ProductRepository) DeleteProduct(ctx context.Context, productId string) error {
+func (p *ProductRepository) DeleteProduct(ctx context.Context, productId string) error {
 	tx := p.db.WithContext(ctx).Model(&models.Product{}).
 		Where("id = ?", productId).
 		Update("deleted_at", time.Now())

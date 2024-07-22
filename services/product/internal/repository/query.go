@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (p ProductRepository) txQueryProduct(tx *gorm.DB, f *entity.ProductFilter) *gorm.DB {
+func (p *ProductRepository) txQueryProduct(tx *gorm.DB, f *entity.ProductFilter) *gorm.DB {
 	if f != nil {
 		if f.Id != "" {
 			tx = tx.Where("id = ?", f.Id)

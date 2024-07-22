@@ -14,15 +14,15 @@ type ProductHandler struct {
 }
 
 type ProductHandlerFactory struct {
-	l       logger.Logger
-	srv     *grpc.Server
-	product usecase.ProductUsecaseInterface
+	L       logger.Logger
+	Srv     *grpc.Server
+	Product usecase.ProductUsecaseInterface
 }
 
 func (prod *ProductHandlerFactory) Create() {
-	productPb.RegisterProductServiceServer(prod.srv, &ProductHandlerFactory{
-		l:       prod.l,
-		srv:     prod.srv,
-		product: prod.product,
+	productPb.RegisterProductServiceServer(prod.Srv, &ProductHandler{
+		l:       prod.L,
+		srv:     prod.Srv,
+		product: prod.Product,
 	})
 }

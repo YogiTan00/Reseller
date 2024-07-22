@@ -14,7 +14,7 @@ type ProductRepositoryFactory struct {
 }
 
 func (prod *ProductRepositoryFactory) Create() repository.ProductRepositoryInterface {
-	return ProductRepository{
+	return &ProductRepository{
 		db: prod.Db,
 	}
 }
