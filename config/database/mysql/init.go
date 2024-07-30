@@ -34,10 +34,11 @@ func InitMysqlDB(cfg config.Config) *sql.DB {
 	val.Add("parseTime", "1")
 	val.Add("loc", "Asia/Jakarta")
 	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
-
+	log.Info(dsn)
 	dbConn, errMysql = sql.Open(`mysql`, dsn)
 
 	if errMysql != nil {
+		log.Error(errMysql)
 		panic(errMysql)
 	}
 
@@ -63,6 +64,7 @@ func NewMigration(cfg config.Config) {
 	val.Add("parseTime", "1")
 	val.Add("loc", "Asia/Jakarta")
 	dsn := fmt.Sprintf("%s?%s", connection, val.Encode())
+	log.Info(dsn)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Error(err)

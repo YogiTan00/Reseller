@@ -10,6 +10,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"net"
+	"os"
 )
 
 func main() {
@@ -26,19 +27,20 @@ func main() {
 	}
 	srv := grpc.NewServer()
 	prod := product.ProductHandlerFactory{
-		Db:  *conn,
+		Db:  conn,
 		Srv: srv,
 	}
 	prod.Create()
 
-	lis, err := net.Listen("tcp", ":8080")
+	lis, err := net.Listen("tcp", os.Getenv("port"))
 	if err != nil {
 		l.Error(fmt.Errorf("failed to listen: %v", err))
+		return
 	}
 	err = srv.Serve(lis)
 	if err != nil {
 		l.Error(err)
 		return
 	}
-
+	l.Info(fmt.Sprintf("server is running on port %s", os.Getenv("port")))
 }

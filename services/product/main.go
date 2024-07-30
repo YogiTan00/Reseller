@@ -9,18 +9,18 @@ import (
 )
 
 type ProductHandler struct {
-	db  gorm.DB
+	db  *gorm.DB
 	srv *grpc.Server
 }
 
 type ProductHandlerFactory struct {
-	Db  gorm.DB
+	Db  *gorm.DB
 	Srv *grpc.Server
 }
 
 func (prod *ProductHandlerFactory) Create() {
 	repoProduct := &repository.ProductRepositoryFactory{
-		Db: prod.Db,
+		Db: *prod.Db,
 	}
 	ucProduct := &usecase.ProductUsecaseFactory{
 		RepoProduct: repoProduct.Create(),
