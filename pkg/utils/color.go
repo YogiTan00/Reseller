@@ -1,6 +1,20 @@
 package utils
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
+
+const (
+	Black   = "black"
+	Red     = "red"
+	Green   = "green"
+	Yellow  = "yellow"
+	Blue    = "blue"
+	Magenta = "magenta"
+	Cyan    = "cyan"
+	White   = "white"
+)
 
 func Color(color string, message string) string {
 	const (
@@ -38,6 +52,6 @@ func Color(color string, message string) string {
 	default:
 		result = black
 	}
-	result = result + message + reset
+	result = fmt.Sprintf("%s%s%s", result, message, reset)
 	return result
 }

@@ -10,6 +10,15 @@ import (
 	"time"
 )
 
+const (
+	Dat      = "[DATA]"
+	Err      = "[ERROR]"
+	Inf      = "[INFO]"
+	Fat      = "[FATAL]"
+	Trx      = "[TRX]"
+	EndPoint = "[END POINT]"
+)
+
 type Logger struct {
 	isError      bool
 	log          *log.Logger
@@ -22,47 +31,47 @@ type Logger struct {
 }
 
 func NewLogger(endPoint string) *Logger {
-	return &Logger{
+	l := &Logger{
 		EndPoint: endPoint,
-		log:      log.New(os.Stdout, "[Logger] ", log.LstdFlags),
+		log:      log.New(os.Stdout, utils.Color(utils.Green, "[LOGGER] "), log.LstdFlags),
 	}
+	l.log.Println(utils.Color(utils.Green, EndPoint), endPoint)
+	return l
 }
 
 func (l *Logger) Info(message any) {
 	if l.StatusCode != 0 {
-		l.log.Println(utils.Color("green", "[EndPoint]"), l.EndPoint)
-		l.log.Println(utils.Color("blue", "[INFO]"), l.ResponseData)
+		l.log.Println(utils.Color(utils.Blue, Inf), l.ResponseData)
 	} else {
-		l.log.Println(utils.Color("green", "[EndPoint]"), l.EndPoint)
-		l.log.Println(utils.Color("blue", "[INFO]"), message)
+		l.log.Println(utils.Color(utils.Blue, Inf), message)
 	}
 }
 
 func (l *Logger) Error(err error) {
 	if l.isError {
-		l.log.Println(utils.Color("green", "[EndPoint]"), l.EndPoint)
-		l.log.Println(utils.Color("red", "[ERROR]"), l.ResponseData)
+		l.log.Println(utils.Color(utils.Red, Err), l.ResponseData)
 	} else {
-		l.log.Println(utils.Color("green", "[EndPoint]"), l.EndPoint)
-		l.log.Println(utils.Color("red", "[ERROR]"), err)
+		l.log.Println(utils.Color(utils.Red, Err), err)
 	}
 }
 
 func (l *Logger) InfoWithData(message string) {
-	if l.EndPoint != "" {
-		l.log.Println(utils.Color("green", "[EndPoint]"), l.EndPoint)
-	}
-	l.log.Println(utils.Color("blue", "[INFO]"), strings.Title(message))
+	l.log.Println(utils.Color(utils.Blue, Inf), strings.Title(message))
 	if l.ResponseData != nil {
-		l.log.Println(utils.Color("yellow", "[Data]"), l.ResponseData)
+		l.log.Println(utils.Color(utils.Yellow, Dat), l.ResponseData)
 	}
 }
 
 func (l *Logger) CreateNewLog() {
 	var now = time.Now()
-	file, err := os.OpenFile(fmt.Sprintf("%s", now.Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if _, err := os.Stat(fmt.Sprintf("%s/logs", os.TempDir())); os.IsNotExist(err) {
+		if err = os.MkdirAll(fmt.Sprintf("%s/logs", os.TempDir()), 0755); err != nil {
+			log.Fatalf("Failed to create log directory: %v", err)
+		}
+	}
+	file, err := os.OpenFile(fmt.Sprintf("%s/logs/%s.log", os.TempDir(), time.Now().Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatalf("Failed to open log file: %v", err)
+		l.Info(err)
 	}
 	defer file.Close()
 	l.log = log.New(file, now.Format(time.DateTime), log.LstdFlags)
@@ -70,7 +79,7 @@ func (l *Logger) CreateNewLog() {
 		l.StatusCode = http.StatusOK
 	}
 	if l.TrxId == "" {
-		l.TrxId = "trx_id_is_empty"
+		l.TrxId = "TRX_ID_IS_EMPTY"
 	}
 
 	if l.StatusCode >= 500 && l.StatusCode <= 599 {
@@ -82,9 +91,17 @@ func (l *Logger) CreateNewLog() {
 	} else {
 		l.Info(nil)
 	}
-
 }
 
 func (l *Logger) MarkAsError() {
 	l.isError = true
+}
+
+func (l *Logger) Fatal(err error) {
+	if l.isError {
+		l.log.Println(utils.Color(utils.Red, Fat), l.ResponseData)
+	} else {
+		l.log.Println(utils.Color(utils.Red, Fat), err)
+	}
+	os.Exit(1)
 }

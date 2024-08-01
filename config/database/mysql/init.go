@@ -51,7 +51,7 @@ func InitMysqlDB(cfg config.Config) *sql.DB {
 
 func NewMigration(cfg config.Config) {
 	var (
-		log = logger.NewLogger("New Migration")
+		log = logger.NewLogger("Migration")
 	)
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		cfg.DbUser,

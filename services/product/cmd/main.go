@@ -1,4 +1,4 @@
-package product
+package cmd
 
 import (
 	"github.com/YogiTan00/Reseller/services/product/internal/delivery"

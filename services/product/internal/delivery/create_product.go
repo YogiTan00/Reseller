@@ -20,5 +20,6 @@ func (prod *ProductHandler) CreateProduct(ctx context.Context, req *productPb.Pr
 	rsp := &productPb.ProductResponse{
 		Id: req.GetId(),
 	}
+	l.ResponseData = rsp
 	return rsp, nil
 }
