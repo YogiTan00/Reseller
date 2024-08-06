@@ -2,11 +2,11 @@
 Management Sales https://github.com/YogiTan00/Reseller
 
 ### Prerequisites
-1. golang (v1.22.3 or above) | https://go.dev/doc/install
+1. golang (v1.21 or above) | https://go.dev/doc/install
 2. Mysql database
-3. Protobuf Compiler | https://github.com/protocolbuffers/protobuf
+3. Protobuf Compiler | https://github.com/protocolbuffers/protobuf | https://github.com/bufbuild/buf/releases
    - check program is it already installed => `protoc --version`
-4. Buf | https://connectrpc.com/docs/go/getting-started/ (v1.28.1 or above)
+4. Buf | https://connectrpc.com/docs/go/getting-started/ (v1.34.0 or above)
    - `go install github.com/bufbuild/buf/cmd/buf@latest`
    - check program is it already installed => `buf --version`
 5. Mockery | https://github.com/vektra/mockery (v2.39.1 or above)

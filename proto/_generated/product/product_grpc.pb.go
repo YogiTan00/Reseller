@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
-	CreateProduct(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*ProductResponse, error)
+	CreateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error)
 }
 
 type productServiceClient struct {
@@ -37,9 +37,9 @@ func NewProductServiceClient(cc grpc.ClientConnInterface) ProductServiceClient {
 	return &productServiceClient{cc}
 }
 
-func (c *productServiceClient) CreateProduct(ctx context.Context, in *ProductRequest, opts ...grpc.CallOption) (*ProductResponse, error) {
+func (c *productServiceClient) CreateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*Product, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ProductResponse)
+	out := new(Product)
 	err := c.cc.Invoke(ctx, ProductService_CreateProduct_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -51,14 +51,14 @@ func (c *productServiceClient) CreateProduct(ctx context.Context, in *ProductReq
 // All implementations should embed UnimplementedProductServiceServer
 // for forward compatibility
 type ProductServiceServer interface {
-	CreateProduct(context.Context, *ProductRequest) (*ProductResponse, error)
+	CreateProduct(context.Context, *Product) (*Product, error)
 }
 
 // UnimplementedProductServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedProductServiceServer struct {
 }
 
-func (UnimplementedProductServiceServer) CreateProduct(context.Context, *ProductRequest) (*ProductResponse, error) {
+func (UnimplementedProductServiceServer) CreateProduct(context.Context, *Product) (*Product, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateProduct not implemented")
 }
 
@@ -74,7 +74,7 @@ func RegisterProductServiceServer(s grpc.ServiceRegistrar, srv ProductServiceSer
 }
 
 func _ProductService_CreateProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProductRequest)
+	in := new(Product)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func _ProductService_CreateProduct_Handler(srv interface{}, ctx context.Context,
 		FullMethod: ProductService_CreateProduct_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductServiceServer).CreateProduct(ctx, req.(*ProductRequest))
+		return srv.(ProductServiceServer).CreateProduct(ctx, req.(*Product))
 	}
 	return interceptor(ctx, in, info, handler)
 }
