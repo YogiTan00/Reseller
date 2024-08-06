@@ -17,7 +17,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-func InitMysqlDB(cfg config.Config) *sql.DB {
+func InitMysqlDB(cfg *config.Config) *sql.DB {
 	var (
 		errMysql error
 		dbConn   *sql.DB
@@ -49,7 +49,7 @@ func InitMysqlDB(cfg config.Config) *sql.DB {
 	return dbConn
 }
 
-func NewMigration(cfg config.Config) {
+func NewMigration(cfg *config.Config) {
 	var (
 		log = logger.NewLogger("Migration")
 	)

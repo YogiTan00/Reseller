@@ -1,6 +1,9 @@
 package entity
 
-import "time"
+import (
+	"github.com/google/uuid"
+	"time"
+)
 
 type Product struct {
 	id           string
@@ -52,4 +55,19 @@ func (data *Product) GetCreatedAt() time.Time {
 }
 func (data *Product) GetUpdatedAt() time.Time {
 	return data.updatedAt
+}
+
+func (dto *ProductDto) Create() *Product {
+	timeNow := time.Now()
+	return &Product{
+		id:           uuid.New().String(),
+		name:         dto.Name,
+		typeSize:     dto.TypeSize,
+		marketType:   dto.MarketType,
+		image:        dto.Image,
+		defaultPrice: dto.DefaultPrice,
+		price:        dto.Price,
+		createdAt:    timeNow,
+		updatedAt:    timeNow,
+	}
 }

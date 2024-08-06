@@ -4,7 +4,7 @@ option go_package = "github.com/YogiTan00/Reseller/proto;productPb";
 import "google/api/annotations/annotations.proto";
 
 service ProductService {
-  rpc CreateProduct(ProductRequest) returns (ProductResponse) {
+  rpc CreateProduct(Product) returns (Product) {
     option (google.api.http) = {
       post: "/api/v1/product/create",
       body: "*"
@@ -12,10 +12,12 @@ service ProductService {
   }
 }
 
-message ProductRequest {
+message Product {
   string id = 1;
-}
-
-message ProductResponse {
-  string id = 1;
+  string name = 2;
+  string type_size = 3;
+  string market_type = 4;
+  string image = 5;
+  uint64 default_price = 6;
+  uint64 price = 7;
 }

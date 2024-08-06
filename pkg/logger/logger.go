@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"github.com/YogiTan00/Reseller/config"
 	"github.com/YogiTan00/Reseller/pkg/utils"
 	"log"
 	"net/http"
@@ -64,12 +65,13 @@ func (l *Logger) InfoWithData(message string) {
 
 func (l *Logger) CreateNewLog() {
 	var now = time.Now()
-	if _, err := os.Stat(fmt.Sprintf("%s/logs", os.TempDir())); os.IsNotExist(err) {
-		if err = os.MkdirAll(fmt.Sprintf("%s/logs", os.TempDir()), 0755); err != nil {
+	cfg := config.NewConfig()
+	if _, err := os.Stat(fmt.Sprintf("%s/logs", cfg.PathLogs)); os.IsNotExist(err) {
+		if err = os.MkdirAll(fmt.Sprintf("%s/logs", cfg.PathLogs), 0755); err != nil {
 			log.Fatalf("Failed to create log directory: %v", err)
 		}
 	}
-	file, err := os.OpenFile(fmt.Sprintf("%s/logs/%s.log", os.TempDir(), time.Now().Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile(fmt.Sprintf("%s/logs/%s.log", cfg.PathLogs, time.Now().Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		l.Info(err)
 	}

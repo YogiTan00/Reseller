@@ -5,7 +5,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 )
 
-func ToModelProduct(data entity.Product) *models.Product {
+func ToModelProduct(data *entity.Product) *models.Product {
 	return &models.Product{
 		Id:           data.GetId(),
 		Name:         data.GetName(),

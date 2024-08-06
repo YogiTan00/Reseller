@@ -1,8 +1,7 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
-	"log"
+	"github.com/YogiTan00/Reseller/pkg/utils"
 	"os"
 )
 
@@ -11,7 +10,6 @@ type Config struct {
 	PortProduct string
 	Domain      string
 	Debug       string
-	Timeout     string
 	Address     string
 	DbHost      string
 	DbPort      string
@@ -19,29 +17,22 @@ type Config struct {
 	DbPass      string
 	DbName      string
 	Migration   string
+	PathLogs    string
 }
 
-func NewEnv(key string) string {
-	// load .env file
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-	return os.Getenv(key)
-}
-
-func NewConfig() Config {
-	return Config{
-		Port:        NewEnv("port"),
-		PortProduct: NewEnv("port_product"),
-		Domain:      NewEnv("domain"),
-		Debug:       NewEnv("debug"),
-		Address:     NewEnv("address"),
-		DbHost:      NewEnv("db_host"),
-		DbPort:      NewEnv("db_port"),
-		DbUser:      NewEnv("db_user"),
-		DbPass:      NewEnv("db_pass"),
-		DbName:      NewEnv("db_name"),
-		Migration:   NewEnv("migration"),
+func NewConfig() *Config {
+	return &Config{
+		Port:        utils.NewEnv("port"),
+		PortProduct: utils.NewEnv("port_product"),
+		Domain:      utils.NewEnv("domain"),
+		Debug:       utils.NewEnv("debug"),
+		Address:     utils.NewEnv("address"),
+		DbHost:      utils.NewEnv("db_host"),
+		DbPort:      utils.NewEnv("db_port"),
+		DbUser:      utils.NewEnv("db_user"),
+		DbPass:      utils.NewEnv("db_pass"),
+		DbName:      utils.NewEnv("db_name"),
+		Migration:   utils.NewEnv("migration"),
+		PathLogs:    utils.NewEnvDefault("path_logs", os.TempDir()),
 	}
 }
