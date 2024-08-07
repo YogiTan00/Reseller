@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"github.com/YogiTan00/Reseller/config"
 	initMysql "github.com/YogiTan00/Reseller/config/database/mysql"
+	"github.com/YogiTan00/Reseller/config/html"
 	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
 	"github.com/YogiTan00/Reseller/services/product/cmd"
+	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -19,12 +21,12 @@ import (
 
 func main() {
 	var (
-		l    = logrus.New()
-		cfg  = config.NewConfig()
-		db   = initMysql.InitMysqlDB(cfg)
-		ctx  = context.Background()
-		mux  = runtime.NewServeMux()
-		opts = []grpc.DialOption{
+		l       = logrus.New()
+		cfg     = config.NewConfig()
+		db      = initMysql.InitMysqlDB(cfg)
+		ctx     = context.Background()
+		muxHttp = runtime.NewServeMux()
+		opts    = []grpc.DialOption{
 			grpc.WithTransportCredentials(insecure.NewCredentials()),
 		}
 	)
@@ -53,7 +55,16 @@ func main() {
 		l.Info(fmt.Sprintf("Serving gRPC on %s", lis.Addr()))
 		l.Fatal(srv.Serve(lis))
 	}()
-	err = productPb.RegisterProductServiceHandlerFromEndpoint(ctx, mux, lis.Addr().String(), opts)
-	l.Info(fmt.Sprintf("Serving gRPC-Gateway on %s", cfg.Port))
-	l.Fatal(http.ListenAndServe(cfg.Port, mux))
+	err = productPb.RegisterProductServiceHandlerFromEndpoint(ctx, muxHttp, lis.Addr().String(), opts)
+	if err != nil {
+		l.Error(fmt.Errorf("failed to register endpoint product: %v", err))
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/", html.HomeHandler)
+	r.HandleFunc("/product", html.ProductHandler)
+	r.PathPrefix("/").Handler(muxHttp)
+
+	l.Info(fmt.Sprintf("Serving HTTP and gRPC-Gateway on %s", cfg.Port))
+	l.Fatal(http.ListenAndServe(cfg.Port, r))
 }

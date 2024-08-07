@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go gRPC and HTTP Gateway</title>
+</head>
+<body>
+<h1>Hello, Go with gRPC-Gateway!</h1>
+<form id="productForm">
+    <input type="text" id="name" placeholder="Product Name" required>
+    <input type="text" id="typeSize" placeholder="Type Size" required>
+    <input type="text" id="marketType" placeholder="Market Type" required>
+    <input type="text" id="image" placeholder="Image" required>
+    <input type="text" id="defaultPrice" placeholder="Default Price" required>
+    <input type="text" id="price" placeholder="Price" required>
+    <button type="submit">Create Product</button>
+</form>
+<script>
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const typeSize = document.getElementById('typeSize').value;
+        const marketType = document.getElementById('marketType').value;
+        const image = document.getElementById('image').value;
+        const defaultPrice = document.getElementById('defaultPrice').value;
+        const price = document.getElementById('price').value;
+
+        fetch('/api/v1/product/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                typeSize: typeSize,
+                marketType: marketType,
+                image: image,
+                defaultPrice: defaultPrice,
+                price: price
+            })
+        })
+            .then(response => response.json())
+            .then(data => alert('Product created with Name: ' + data.name)) // Adjust based on the actual response structure
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
