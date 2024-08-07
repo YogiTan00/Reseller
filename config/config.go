@@ -1,9 +1,24 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
-	"log"
+	"fmt"
+	"github.com/YogiTan00/Reseller/pkg/utils"
 	"os"
+)
+
+const (
+	Port        = "port"
+	PortProduct = "port_product"
+	Domain      = "domain"
+	Debug       = "debug"
+	Address     = "address"
+	DbHost      = "db_host"
+	DbPort      = "db_port"
+	DbUser      = "db_user"
+	DbPass      = "db_pass"
+	DbName      = "db_name"
+	Migration   = "migration"
+	PathLogs    = "path_logs"
 )
 
 type Config struct {
@@ -11,7 +26,6 @@ type Config struct {
 	PortProduct string
 	Domain      string
 	Debug       string
-	Timeout     string
 	Address     string
 	DbHost      string
 	DbPort      string
@@ -19,29 +33,48 @@ type Config struct {
 	DbPass      string
 	DbName      string
 	Migration   string
+	PathLogs    string
 }
 
-func NewEnv(key string) string {
-	// load .env file
-	err := godotenv.Load(".env")
+func NewConfig() *Config {
+	cfg := &Config{
+		Port:        utils.NewEnv(Port),
+		PortProduct: utils.NewEnv(PortProduct),
+		Domain:      utils.NewEnv(Domain),
+		Debug:       utils.NewEnv(Debug),
+		Address:     utils.NewEnv(Address),
+		DbHost:      utils.NewEnv(DbHost),
+		DbPort:      utils.NewEnv(DbPort),
+		DbUser:      utils.NewEnv(DbUser),
+		DbPass:      utils.NewEnv(DbPass),
+		DbName:      utils.NewEnv(DbName),
+		Migration:   utils.NewEnv(Migration),
+		PathLogs:    utils.NewEnvDefault(PathLogs, os.TempDir()),
+	}
+	err := cfg.Validate()
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		panic(utils.Color("red", err.Error()))
 	}
-	return os.Getenv(key)
+	return cfg
 }
 
-func NewConfig() Config {
-	return Config{
-		Port:        NewEnv("port"),
-		PortProduct: NewEnv("port_product"),
-		Domain:      NewEnv("domain"),
-		Debug:       NewEnv("debug"),
-		Address:     NewEnv("address"),
-		DbHost:      NewEnv("db_host"),
-		DbPort:      NewEnv("db_port"),
-		DbUser:      NewEnv("db_user"),
-		DbPass:      NewEnv("db_pass"),
-		DbName:      NewEnv("db_name"),
-		Migration:   NewEnv("migration"),
+func (cfg *Config) Validate() error {
+	required := []string{
+		Port,
+		PortProduct,
+		Domain,
+		DbHost,
+		DbPort,
+		DbUser,
+		DbPass,
+		DbName,
+		Migration,
 	}
+	for _, v := range required {
+		if utils.NewEnv(v) == "" {
+			return fmt.Errorf("env %s is required", v)
+		}
+	}
+
+	return nil
 }

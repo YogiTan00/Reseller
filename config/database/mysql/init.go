@@ -8,6 +8,7 @@ import (
 	"github.com/YogiTan00/Reseller/pkg/logger"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
+	"github.com/sirupsen/logrus"
 	"net/url"
 	"os"
 	"strconv"
@@ -17,12 +18,16 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
-func InitMysqlDB(cfg config.Config) *sql.DB {
+func InitMysqlDB(cfg *config.Config) *sql.DB {
 	var (
 		errMysql error
 		dbConn   *sql.DB
-		log      = logger.NewLogger("Init Mysql")
+		log      = logrus.New()
 	)
+	log.Formatter = &logrus.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	}
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		cfg.DbUser,
 		cfg.DbPass,
@@ -38,7 +43,7 @@ func InitMysqlDB(cfg config.Config) *sql.DB {
 	dbConn, errMysql = sql.Open(`mysql`, dsn)
 
 	if errMysql != nil {
-		log.Error(errMysql)
+		log.Error(logger.Err, errMysql)
 		panic(errMysql)
 	}
 
@@ -49,10 +54,14 @@ func InitMysqlDB(cfg config.Config) *sql.DB {
 	return dbConn
 }
 
-func NewMigration(cfg config.Config) {
+func NewMigration(cfg *config.Config) {
 	var (
-		log = logger.NewLogger("Migration")
+		log = logrus.New()
 	)
+	log.Formatter = &logrus.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	}
 	connection := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		cfg.DbUser,
 		cfg.DbPass,
@@ -73,7 +82,7 @@ func NewMigration(cfg config.Config) {
 
 	driver, err := mysql.WithInstance(db, &mysql.Config{})
 	if err != nil {
-		log.Error(err)
+		log.Error(logger.Err, err)
 		return
 	}
 
@@ -83,13 +92,13 @@ func NewMigration(cfg config.Config) {
 		driver,
 	)
 	if err != nil {
-		log.Error(err)
+		log.Error(logger.Err, err)
 		return
 	}
 
 	mgrt, err := strconv.Atoi(cfg.Migration)
 	if err != nil {
-		log.Error(err)
+		log.Error(logger.Err, err)
 		return
 	}
 	err = m.Steps(mgrt)
@@ -97,7 +106,7 @@ func NewMigration(cfg config.Config) {
 		if errors.Is(err, os.ErrNotExist) {
 			return
 		}
-		log.Error(err)
+		log.Error(logger.Err, err)
 		return
 	}
 }

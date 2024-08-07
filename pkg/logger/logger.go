@@ -1,11 +1,14 @@
 package logger
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/YogiTan00/Reseller/pkg/utils"
+	"github.com/YogiTan00/Reseller/config"
+	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -21,7 +24,8 @@ const (
 
 type Logger struct {
 	isError      bool
-	log          *log.Logger
+	prefix       string
+	log          *logrus.Logger
 	TimeStarted  time.Time
 	EndPoint     string
 	StatusCode   int
@@ -30,51 +34,91 @@ type Logger struct {
 	TrxId        string
 }
 
-func NewLogger(endPoint string) *Logger {
-	l := &Logger{
-		EndPoint: endPoint,
-		log:      log.New(os.Stdout, utils.Color(utils.Green, "[LOGGER] "), log.LstdFlags),
-	}
-	l.log.Println(utils.Color(utils.Green, EndPoint), endPoint)
-	return l
-}
-
 func (l *Logger) Info(message any) {
+	if l.EndPoint != "" {
+		l.log.Println(l.EndPoint)
+	}
 	if l.StatusCode != 0 {
-		l.log.Println(utils.Color(utils.Blue, Inf), l.ResponseData)
+		if l.ResponseData != nil {
+			result, _ := json.Marshal(l.ResponseData)
+			l.log.Println(string(result))
+		} else {
+			l.log.Println(l.ResponseData)
+		}
 	} else {
-		l.log.Println(utils.Color(utils.Blue, Inf), message)
+		l.log.Println(message)
 	}
 }
 
 func (l *Logger) Error(err error) {
 	if l.isError {
-		l.log.Println(utils.Color(utils.Red, Err), l.ResponseData)
+		l.log.Errorln(l.ResponseData)
 	} else {
-		l.log.Println(utils.Color(utils.Red, Err), err)
+		l.log.Errorln(err)
 	}
 }
 
 func (l *Logger) InfoWithData(message string) {
-	l.log.Println(utils.Color(utils.Blue, Inf), strings.Title(message))
+	l.log.Println(strings.Title(message))
 	if l.ResponseData != nil {
-		l.log.Println(utils.Color(utils.Yellow, Dat), l.ResponseData)
+		l.log.Println(l.ResponseData)
 	}
 }
 
 func (l *Logger) CreateNewLog() {
-	var now = time.Now()
-	if _, err := os.Stat(fmt.Sprintf("%s/logs", os.TempDir())); os.IsNotExist(err) {
-		if err = os.MkdirAll(fmt.Sprintf("%s/logs", os.TempDir()), 0755); err != nil {
+	cfg := config.NewConfig()
+	debug, err := strconv.ParseBool(cfg.Debug)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if debug {
+		saveLog(l, cfg)
+	}
+	createLog(l)
+}
+
+func createLog(l *Logger) {
+	l.log = logrus.New()
+	l.log.Out = os.Stdout
+	l.log.Formatter = &logrus.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	}
+	if !l.isError && l.StatusCode == 0 {
+		l.StatusCode = http.StatusOK
+	}
+	if l.TrxId == "" {
+		l.TrxId = "TRX_ID_IS_EMPTY"
+	}
+
+	if l.StatusCode >= 500 && l.StatusCode <= 599 {
+		l.MarkAsError()
+	}
+
+	if l.isError {
+		l.Error(nil)
+	} else {
+		l.Info(nil)
+	}
+}
+
+func saveLog(l *Logger, cfg *config.Config) {
+	l.log = logrus.New()
+	if _, err := os.Stat(fmt.Sprintf("%s/logs", cfg.PathLogs)); os.IsNotExist(err) {
+		if err = os.MkdirAll(fmt.Sprintf("%s/logs", cfg.PathLogs), 0755); err != nil {
 			log.Fatalf("Failed to create log directory: %v", err)
 		}
 	}
-	file, err := os.OpenFile(fmt.Sprintf("%s/logs/%s.log", os.TempDir(), time.Now().Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile(fmt.Sprintf("%s/logs/%s.log", cfg.PathLogs, time.Now().Format(time.DateOnly)), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		l.Info(err)
 	}
 	defer file.Close()
-	l.log = log.New(file, now.Format(time.DateTime), log.LstdFlags)
+	l.log.Out = file
+	l.log.Formatter = &logrus.TextFormatter{
+		ForceColors:   false,
+		FullTimestamp: true,
+	}
 	if !l.isError && l.StatusCode == 0 {
 		l.StatusCode = http.StatusOK
 	}
@@ -99,9 +143,18 @@ func (l *Logger) MarkAsError() {
 
 func (l *Logger) Fatal(err error) {
 	if l.isError {
-		l.log.Println(utils.Color(utils.Red, Fat), l.ResponseData)
+		l.log.Println(Fat, l.ResponseData)
 	} else {
-		l.log.Println(utils.Color(utils.Red, Fat), err)
+		l.log.Println(Fat, err)
 	}
 	os.Exit(1)
+}
+
+func (l *Logger) Panic(err error) {
+	if l.isError {
+		l.log.Println(Fat, l.ResponseData)
+	} else {
+		l.log.Println(Fat, err)
+	}
+	panic(err)
 }

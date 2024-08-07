@@ -7,7 +7,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/product/internal/repository/models"
 )
 
-func (p *ProductRepository) UpdateProduct(ctx context.Context, prd entity.Product) error {
+func (p *ProductRepository) UpdateProduct(ctx context.Context, prd *entity.Product) error {
 	mdl := mapper.ToModelProduct(prd)
 	tx := p.db.WithContext(ctx).Model(&models.Product{}).
 		Where("id = ?", prd.GetId()).
