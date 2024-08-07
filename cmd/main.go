@@ -5,34 +5,39 @@ import (
 	"fmt"
 	"github.com/YogiTan00/Reseller/config"
 	initMysql "github.com/YogiTan00/Reseller/config/database/mysql"
-	"github.com/YogiTan00/Reseller/pkg/logger"
 	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
 	"github.com/YogiTan00/Reseller/services/product/cmd"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"net"
 	"net/http"
 )
 
-var (
-	l    = logger.NewLogger("-=Main=-")
-	cfg  = config.NewConfig()
-	db   = initMysql.InitMysqlDB(cfg)
-	ctx  = context.Background()
-	mux  = runtime.NewServeMux()
-	opts = []grpc.DialOption{
-		grpc.WithInsecure()}
-)
-
 func main() {
+	var (
+		l    = logrus.New()
+		cfg  = config.NewConfig()
+		db   = initMysql.InitMysqlDB(cfg)
+		ctx  = context.Background()
+		mux  = runtime.NewServeMux()
+		opts = []grpc.DialOption{
+			grpc.WithTransportCredentials(insecure.NewCredentials()),
+		}
+	)
+	l.Formatter = &logrus.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	}
 	initMysql.NewMigration(cfg)
 	connDb, err := gorm.Open(mysql.New(mysql.Config{
 		Conn: db,
 	}), &gorm.Config{})
 	if err != nil {
-		l.Info(err)
+		l.Error(err)
 	}
 	srv := grpc.NewServer()
 	product := cmd.ProductHandlerFactory{
@@ -42,7 +47,7 @@ func main() {
 	product.Create()
 	lis, err := net.Listen("tcp", cfg.PortProduct)
 	if err != nil {
-		l.Info(fmt.Errorf("failed to listen: %v", err))
+		l.Error(fmt.Errorf("failed to listen: %v", err))
 	}
 	go func() {
 		l.Info(fmt.Sprintf("Serving gRPC on %s", lis.Addr()))

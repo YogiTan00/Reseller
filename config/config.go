@@ -1,8 +1,24 @@
 package config
 
 import (
+	"fmt"
 	"github.com/YogiTan00/Reseller/pkg/utils"
 	"os"
+)
+
+const (
+	Port        = "port"
+	PortProduct = "port_product"
+	Domain      = "domain"
+	Debug       = "debug"
+	Address     = "address"
+	DbHost      = "db_host"
+	DbPort      = "db_port"
+	DbUser      = "db_user"
+	DbPass      = "db_pass"
+	DbName      = "db_name"
+	Migration   = "migration"
+	PathLogs    = "path_logs"
 )
 
 type Config struct {
@@ -21,18 +37,44 @@ type Config struct {
 }
 
 func NewConfig() *Config {
-	return &Config{
-		Port:        utils.NewEnv("port"),
-		PortProduct: utils.NewEnv("port_product"),
-		Domain:      utils.NewEnv("domain"),
-		Debug:       utils.NewEnv("debug"),
-		Address:     utils.NewEnv("address"),
-		DbHost:      utils.NewEnv("db_host"),
-		DbPort:      utils.NewEnv("db_port"),
-		DbUser:      utils.NewEnv("db_user"),
-		DbPass:      utils.NewEnv("db_pass"),
-		DbName:      utils.NewEnv("db_name"),
-		Migration:   utils.NewEnv("migration"),
-		PathLogs:    utils.NewEnvDefault("path_logs", os.TempDir()),
+	cfg := &Config{
+		Port:        utils.NewEnv(Port),
+		PortProduct: utils.NewEnv(PortProduct),
+		Domain:      utils.NewEnv(Domain),
+		Debug:       utils.NewEnv(Debug),
+		Address:     utils.NewEnv(Address),
+		DbHost:      utils.NewEnv(DbHost),
+		DbPort:      utils.NewEnv(DbPort),
+		DbUser:      utils.NewEnv(DbUser),
+		DbPass:      utils.NewEnv(DbPass),
+		DbName:      utils.NewEnv(DbName),
+		Migration:   utils.NewEnv(Migration),
+		PathLogs:    utils.NewEnvDefault(PathLogs, os.TempDir()),
 	}
+	err := cfg.Validate()
+	if err != nil {
+		panic(utils.Color("red", err.Error()))
+	}
+	return cfg
+}
+
+func (cfg *Config) Validate() error {
+	required := []string{
+		Port,
+		PortProduct,
+		Domain,
+		DbHost,
+		DbPort,
+		DbUser,
+		DbPass,
+		DbName,
+		Migration,
+	}
+	for _, v := range required {
+		if utils.NewEnv(v) == "" {
+			return fmt.Errorf("env %s is required", v)
+		}
+	}
+
+	return nil
 }

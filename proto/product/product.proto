@@ -6,7 +6,7 @@ import "google/api/annotations/annotations.proto";
 service ProductService {
   rpc CreateProduct(Product) returns (Product) {
     option (google.api.http) = {
-      post: "/api/v1/product/create",
+      post: "/api/v1/product/create"
       body: "*"
     };
   }

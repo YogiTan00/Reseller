@@ -17,7 +17,6 @@ func (prod *ProductHandler) CreateProduct(ctx context.Context, req *productPb.Pr
 		TrxId:       uuid.New().String(),
 	}
 	defer l.CreateNewLog()
-
 	data := request.NewProductRequest(req)
 
 	err := prod.product.CreateProduct(ctx, data)
