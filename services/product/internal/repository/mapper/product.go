@@ -30,6 +30,7 @@ func ToEntityProduct(data *models.Product) *entity.ProductDto {
 		Price:        data.Price,
 		CreatedAt:    data.CreatedAt,
 		UpdatedAt:    data.UpdatedAt,
+		DeletedAt:    data.DeletedAt,
 	}
 }
 

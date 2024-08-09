@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"github.com/YogiTan00/Reseller/pkg/exceptions"
 	"github.com/google/uuid"
 	"time"
 )
@@ -15,6 +16,7 @@ type Product struct {
 	price        int64
 	createdAt    time.Time
 	updatedAt    time.Time
+	deletedAt    *time.Time
 }
 
 type ProductDto struct {
@@ -27,6 +29,7 @@ type ProductDto struct {
 	Price        int64
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
+	DeletedAt    *time.Time
 }
 
 func (data *Product) GetId() string {
@@ -57,7 +60,7 @@ func (data *Product) GetUpdatedAt() time.Time {
 	return data.updatedAt
 }
 
-func (dto *ProductDto) Create() *Product {
+func (dto *ProductDto) New() *Product {
 	timeNow := time.Now()
 	return &Product{
 		id:           uuid.New().String(),
@@ -70,4 +73,73 @@ func (dto *ProductDto) Create() *Product {
 		createdAt:    timeNow,
 		updatedAt:    timeNow,
 	}
+}
+
+func (dto *ProductDto) Update(data *ProductDto) *Product {
+	timeNow := time.Now()
+	if data.Name != "" {
+		dto.Name = data.Name
+	}
+
+	if data.TypeSize != "" {
+		dto.TypeSize = data.TypeSize
+	}
+
+	if data.MarketType != "" {
+		dto.MarketType = data.MarketType
+	}
+
+	if data.Image != "" {
+		dto.Image = data.Image
+	}
+
+	if data.DefaultPrice != 0 {
+		dto.DefaultPrice = data.DefaultPrice
+	}
+
+	if data.Price != 0 {
+		dto.Price = data.Price
+	}
+
+	dto.UpdatedAt = timeNow
+
+	return dto.Create()
+}
+
+func (dto *ProductDto) Create() *Product {
+	return &Product{
+		id:           dto.Id,
+		name:         dto.Name,
+		typeSize:     dto.TypeSize,
+		marketType:   dto.MarketType,
+		image:        dto.Image,
+		defaultPrice: dto.DefaultPrice,
+		price:        dto.Price,
+		createdAt:    dto.CreatedAt,
+		updatedAt:    dto.UpdatedAt,
+	}
+}
+
+func (data *ProductDto) Validate() error {
+	if data.Name == "" {
+		return exceptions.ErrRequired("name")
+	}
+
+	if data.TypeSize == "" {
+		return exceptions.ErrRequired("typeSize")
+	}
+
+	if data.MarketType == "" {
+		return exceptions.ErrRequired("marketType")
+	}
+
+	if data.DefaultPrice == 0 {
+		return exceptions.ErrRequired("defaultPrice")
+	}
+
+	if data.Price == 0 {
+		return exceptions.ErrRequired("price")
+	}
+
+	return nil
 }
