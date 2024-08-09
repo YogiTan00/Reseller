@@ -26,7 +26,6 @@ type Logger struct {
 	isError      bool
 	prefix       string
 	log          *logrus.Logger
-	TimeStarted  time.Time
 	EndPoint     string
 	StatusCode   int
 	RequestData  interface{}
@@ -42,8 +41,6 @@ func (l *Logger) Info(message any) {
 		if l.ResponseData != nil {
 			result, _ := json.Marshal(l.ResponseData)
 			l.log.Println(string(result))
-		} else {
-			l.log.Println(l.ResponseData)
 		}
 	} else {
 		l.log.Println(message)
@@ -66,10 +63,21 @@ func (l *Logger) InfoWithData(message string) {
 }
 
 func (l *Logger) CreateNewLog() {
-	cfg := config.NewConfig()
-	debug, err := strconv.ParseBool(cfg.Debug)
-	if err != nil {
-		log.Fatal(err)
+	var (
+		debug bool
+		err   error
+		cfg   = config.NewConfig()
+	)
+	l.log = logrus.New()
+	l.log.Formatter = &logrus.TextFormatter{
+		ForceColors:   true,
+		FullTimestamp: true,
+	}
+	if len(cfg.Debug) != 0 {
+		debug, err = strconv.ParseBool(cfg.Debug)
+		if err != nil {
+			l.Fatal(err)
+		}
 	}
 	if debug {
 		saveLog(l, cfg)
@@ -78,7 +86,6 @@ func (l *Logger) CreateNewLog() {
 }
 
 func createLog(l *Logger) {
-	l.log = logrus.New()
 	l.log.Out = os.Stdout
 	l.log.Formatter = &logrus.TextFormatter{
 		ForceColors:   true,
@@ -103,7 +110,6 @@ func createLog(l *Logger) {
 }
 
 func saveLog(l *Logger, cfg *config.Config) {
-	l.log = logrus.New()
 	if _, err := os.Stat(fmt.Sprintf("%s/logs", cfg.PathLogs)); os.IsNotExist(err) {
 		if err = os.MkdirAll(fmt.Sprintf("%s/logs", cfg.PathLogs), 0755); err != nil {
 			log.Fatalf("Failed to create log directory: %v", err)

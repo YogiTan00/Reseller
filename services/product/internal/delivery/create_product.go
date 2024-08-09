@@ -6,12 +6,10 @@ import (
 	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
 	"github.com/YogiTan00/Reseller/services/product/internal/delivery/request"
 	"github.com/google/uuid"
-	"time"
 )
 
 func (prod *ProductHandler) CreateProduct(ctx context.Context, req *productPb.Product) (*productPb.Product, error) {
 	l := logger.Logger{
-		TimeStarted: time.Now(),
 		EndPoint:    "/api/v1/product/create",
 		RequestData: req,
 		TrxId:       uuid.New().String(),

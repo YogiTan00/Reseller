@@ -61,8 +61,8 @@ func main() {
 	}
 
 	r := mux.NewRouter()
-	r.HandleFunc("/", html.HomeHandler)
-	r.HandleFunc("/product", html.ProductHandler)
+	r.HandleFunc("/", html.HomeHandler())
+	r.HandleFunc("/product", html.ProductHandler())
 	r.PathPrefix("/").Handler(muxHttp)
 
 	l.Info(fmt.Sprintf("Serving HTTP and gRPC-Gateway on %s", cfg.Port))
