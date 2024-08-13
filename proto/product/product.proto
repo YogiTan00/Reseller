@@ -42,7 +42,6 @@ message Product {
   string id = 1;
   string name = 2;
   string type_size = 3;
-  string market_type = 4;
   string image = 5;
   uint64 default_price = 6;
   uint64 price = 7;

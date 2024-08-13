@@ -10,7 +10,6 @@ type Product struct {
 	id           string
 	name         string
 	typeSize     string
-	marketType   string
 	image        string
 	defaultPrice int64
 	price        int64
@@ -23,7 +22,6 @@ type ProductDto struct {
 	Id           string
 	Name         string
 	TypeSize     string
-	MarketType   string
 	Image        string
 	DefaultPrice int64
 	Price        int64
@@ -40,9 +38,6 @@ func (data *Product) GetName() string {
 }
 func (data *Product) GetTypeSize() string {
 	return data.typeSize
-}
-func (data *Product) GetMarketType() string {
-	return data.marketType
 }
 func (data *Product) GetImage() string {
 	return data.image
@@ -66,7 +61,6 @@ func (dto *ProductDto) New() *Product {
 		id:           uuid.New().String(),
 		name:         dto.Name,
 		typeSize:     dto.TypeSize,
-		marketType:   dto.MarketType,
 		image:        dto.Image,
 		defaultPrice: dto.DefaultPrice,
 		price:        dto.Price,
@@ -83,10 +77,6 @@ func (dto *ProductDto) Update(data *ProductDto) *Product {
 
 	if data.TypeSize != "" {
 		dto.TypeSize = data.TypeSize
-	}
-
-	if data.MarketType != "" {
-		dto.MarketType = data.MarketType
 	}
 
 	if data.Image != "" {
@@ -111,7 +101,6 @@ func (dto *ProductDto) Create() *Product {
 		id:           dto.Id,
 		name:         dto.Name,
 		typeSize:     dto.TypeSize,
-		marketType:   dto.MarketType,
 		image:        dto.Image,
 		defaultPrice: dto.DefaultPrice,
 		price:        dto.Price,
@@ -127,10 +116,6 @@ func (data *ProductDto) Validate() error {
 
 	if data.TypeSize == "" {
 		return exceptions.ErrRequired("typeSize")
-	}
-
-	if data.MarketType == "" {
-		return exceptions.ErrRequired("marketType")
 	}
 
 	if data.DefaultPrice == 0 {
