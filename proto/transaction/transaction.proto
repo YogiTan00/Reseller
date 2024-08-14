@@ -1,0 +1,71 @@
+syntax = "proto3";
+package transactionPb;
+option go_package = "github.com/YogiTan00/Reseller/proto;transactionPb";
+import "google/api/annotations/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp/timestamp.proto";
+
+service TransactionService {
+    rpc CreateTransaction(Transaction) returns (GeneralResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/transaction/create"
+        body: "*"
+      };
+    }
+    rpc DeleteTransaction(GeneralIdRequest) returns (GeneralResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/transaction/delete/{id}"
+        body: "*"
+      };
+    }
+    rpc GetListTransaction(GeneralFilter) returns (TransactionList) {
+      option (google.api.http) = {
+        get: "/api/v1/transaction/list"
+      };
+    }
+    rpc GetTransaction(GeneralIdRequest) returns (Transaction) {
+      option (google.api.http) = {
+        get: "/api/v1/transaction/view/{id}"
+      };
+    }
+    rpc UpdateTransaction(Transaction) returns (GeneralResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/transaction/update"
+        body: "*"
+      };
+    }
+}
+
+message TransactionList{
+  repeated Transaction data = 1;
+}
+
+message Transaction {
+  string id = 1;
+  string id_name = 2;
+  string name = 3;
+  google.protobuf.BoolValue return = 4;
+  google.protobuf.Timestamp sales_date = 5;
+  uint32 unit = 6;
+  string description = 7;
+}
+
+message GeneralResponse{
+  General data = 1;
+}
+
+message General {
+  string message = 1;
+}
+
+
+message GeneralIdRequest{
+  string id = 1;
+}
+
+message GeneralFilter{
+  string q = 1;
+  string order_by = 2;
+  uint32 limit = 3;
+  uint32 offset = 4;
+}
