@@ -14,6 +14,6 @@ type Product struct {
 	DeletedAt    *time.Time `gorm:"column:deleted_at"`
 }
 
-func (p *Product) TableName() string {
+func (Product) TableName() string {
 	return "products"
 }
