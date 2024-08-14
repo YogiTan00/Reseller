@@ -6,22 +6,23 @@ import (
 	"github.com/YogiTan00/Reseller/config"
 	initMysql "github.com/YogiTan00/Reseller/config/database/mysql"
 	"github.com/YogiTan00/Reseller/config/html"
-	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
-	"github.com/YogiTan00/Reseller/services/product/cmd"
+	"github.com/YogiTan00/Reseller/pkg/logger"
+	cmdProd "github.com/YogiTan00/Reseller/services/product/cmd"
+	cmdTrans "github.com/YogiTan00/Reseller/services/transactions/cmd"
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"net"
 	"net/http"
 )
 
 func main() {
 	var (
-		l       = logrus.New()
+		l = logger.Logger{
+			EndPoint: "Main",
+		}
 		cfg     = config.NewConfig()
 		db      = initMysql.InitMysqlDB(cfg)
 		ctx     = context.Background()
@@ -30,10 +31,7 @@ func main() {
 			grpc.WithTransportCredentials(insecure.NewCredentials()),
 		}
 	)
-	l.Formatter = &logrus.TextFormatter{
-		ForceColors:   true,
-		FullTimestamp: true,
-	}
+	l.CreateNewLog()
 	initMysql.NewMigration(cfg)
 	connDb, err := gorm.Open(mysql.New(mysql.Config{
 		Conn: db,
@@ -42,23 +40,19 @@ func main() {
 		l.Error(err)
 	}
 	srv := grpc.NewServer()
-	product := cmd.ProductHandlerFactory{
+
+	product := cmdProd.ProductInit{
+		Db:  connDb,
+		Srv: srv,
+		L:   l,
+	}
+	product.Create(ctx, muxHttp, cfg.PortProduct, opts)
+	transaction := cmdTrans.TransactionInit{
+		L:   l,
 		Db:  connDb,
 		Srv: srv,
 	}
-	product.Create()
-	lis, err := net.Listen("tcp", cfg.PortProduct)
-	if err != nil {
-		l.Error(fmt.Errorf("failed to listen: %v", err))
-	}
-	go func() {
-		l.Info(fmt.Sprintf("Serving gRPC on %s", lis.Addr()))
-		l.Fatal(srv.Serve(lis))
-	}()
-	err = productPb.RegisterProductServiceHandlerFromEndpoint(ctx, muxHttp, lis.Addr().String(), opts)
-	if err != nil {
-		l.Error(fmt.Errorf("failed to register endpoint product: %v", err))
-	}
+	transaction.Create(ctx, muxHttp, cfg.PortTransaction, opts)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", html.HomeHandler())
