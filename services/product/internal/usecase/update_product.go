@@ -19,6 +19,10 @@ func (p ProductUsecase) UpdateProduct(ctx context.Context, prd *entity.ProductDt
 	prod, err := p.repoProduct.GetDetailProduct(ctx, filter)
 	if err != nil {
 		p.l.Error(err)
+		return exceptions.ErrInternalServer
+	}
+
+	if prod == nil {
 		return exceptions.ErrNotFound("product")
 	}
 
