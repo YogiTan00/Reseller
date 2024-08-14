@@ -10,7 +10,6 @@ func ProductResponse(prd *entity.ProductDto) *productPb.Product {
 		Id:           prd.Id,
 		Name:         prd.Name,
 		TypeSize:     prd.TypeSize,
-		MarketType:   prd.MarketType,
 		Image:        prd.Image,
 		DefaultPrice: uint64(prd.DefaultPrice),
 		Price:        uint64(prd.Price),

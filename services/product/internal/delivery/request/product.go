@@ -9,7 +9,6 @@ func NewProductRequest(req *productPb.Product) *entity.ProductDto {
 	return &entity.ProductDto{
 		Name:         req.GetName(),
 		TypeSize:     req.GetTypeSize(),
-		MarketType:   req.GetMarketType(),
 		Image:        req.GetImage(),
 		DefaultPrice: int64(req.GetDefaultPrice()),
 		Price:        int64(req.GetPrice()),
@@ -21,7 +20,6 @@ func UpdateProductRequest(req *productPb.Product) *entity.ProductDto {
 		Id:           req.GetId(),
 		Name:         req.GetName(),
 		TypeSize:     req.GetTypeSize(),
-		MarketType:   req.GetMarketType(),
 		Image:        req.GetImage(),
 		DefaultPrice: int64(req.GetDefaultPrice()),
 		Price:        int64(req.GetPrice()),
