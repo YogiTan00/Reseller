@@ -1,0 +1,13 @@
+.product-list {
+    list-style-type: none;
+    padding: 0;
+}
+.product-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.product-item img {
+    max-width: 100px;
+    height: auto;
+}

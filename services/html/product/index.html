@@ -1,50 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go gRPC and HTTP Gateway</title>
+    <title>Bootstrap 5 Website Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/product/list.css">
 </head>
 <body>
-<h1>Hello, Go with gRPC-Gateway!</h1>
-<form id="productForm">
-    <input type="text" id="name" placeholder="Product Name" required>
-    <input type="text" id="typeSize" placeholder="Type Size" required>
-    <input type="text" id="marketType" placeholder="Market Type" required>
-    <input type="text" id="image" placeholder="Image" required>
-    <input type="text" id="defaultPrice" placeholder="Default Price" required>
-    <input type="text" id="price" placeholder="Price" required>
-    <button type="submit">Create Product</button>
-</form>
-<script>
-    document.getElementById('productForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+<!--Header-->
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="p-5 bg-primary text-white text-center col-8">
+        <h1>My First Bootstrap 5 Page</h1>
+        <p>Resize this responsive page to see the effect!</p>
+    </div>
+    <div class="col-2"></div>
+</div>
+<!--Navbar-->
+<div class="row col-12">
+    <div class="col-2"></div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark col-sm-8">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Logo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/transaction">Transaction</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="col-2"></div>
+</div>
+<!--Page-->
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="container mt-5 col-8">
+        <form id="productForm">
+            <input type="text" id="name" placeholder="Product Name" required>
+            <input type="text" id="typeSize" placeholder="Type Size" required>
+            <input type="text" id="marketType" placeholder="Market Type" required>
+            <input type="text" id="image" placeholder="Image" required>
+            <input type="text" id="defaultPrice" placeholder="Default Price" required>
+            <input type="text" id="price" placeholder="Price" required>
+            <button type="submit">Create Product</button>
+        </form>
+        <ul id="productList"></ul>
 
-        const name = document.getElementById('name').value;
-        const typeSize = document.getElementById('typeSize').value;
-        const marketType = document.getElementById('marketType').value;
-        const image = document.getElementById('image').value;
-        const defaultPrice = document.getElementById('defaultPrice').value;
-        const price = document.getElementById('price').value;
-
-        fetch('/api/v1/product/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                typeSize: typeSize,
-                marketType: marketType,
-                image: image,
-                defaultPrice: defaultPrice,
-                price: price
-            })
-        })
-            .then(response => response.json())
-            .then(data => alert('Product created with Name: ' + data.name)) // Adjust based on the actual response structure
-            .catch(error => console.error('Error:', error));
-    });
-</script>
+        <!-- Import the main.js file as a module -->
+        <script type="module" src="../js/main.js"></script>
+    </div>
+    <div class="col-2"></div>
+</div>
+<!--Footer-->
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="mt-5 p-4 bg-dark text-white text-center col-8">
+        <p>Footer</p>
+    </div>
+    <div class="col-2"></div>
+</div>
 </body>
 </html>
