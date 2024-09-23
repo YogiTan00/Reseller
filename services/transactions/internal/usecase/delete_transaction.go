@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (t TransactionUsecase) DeleteTransaction(ctx context.Context, transId string) error {
+func (t *TransactionUsecase) DeleteTransaction(ctx context.Context, transId string) error {
 	err := uuid.Validate(transId)
 	if err != nil {
 		return err

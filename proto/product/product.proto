@@ -32,6 +32,9 @@ service ProductService {
       body: "*"
     };
   }
+
+  //Rpc
+  rpc RpcGetProduct(GeneralIdRequest) returns (Product) {}
 }
 
 message ProductList {
@@ -45,6 +48,9 @@ message Product {
   string image = 5;
   uint64 default_price = 6;
   uint64 price = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  google.protobuf.Timestamp deleted_at = 10;
 }
 
 message GeneralResponse{

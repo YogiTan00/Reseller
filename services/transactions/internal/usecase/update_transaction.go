@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (t TransactionUsecase) UpdateTransaction(ctx context.Context, trans *entity.TransactionDto) error {
+func (t *TransactionUsecase) UpdateTransaction(ctx context.Context, trans *entity.TransactionDto) error {
 	err := uuid.Validate(trans.Id)
 	if err != nil {
 		return err

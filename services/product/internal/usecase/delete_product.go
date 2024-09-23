@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (p ProductUsecase) DeleteProduct(ctx context.Context, productId string) error {
+func (p *ProductUsecase) DeleteProduct(ctx context.Context, productId string) error {
 	err := uuid.Validate(productId)
 	if err != nil {
 		return err

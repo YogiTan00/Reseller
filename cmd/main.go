@@ -49,6 +49,7 @@ func main() {
 	product.Create(ctx, muxHttp, cfg.PortProduct, opts)
 	transaction := cmdTrans.TransactionInit{
 		L:   l,
+		Cfg: cfg,
 		Db:  connDb,
 		Srv: srv,
 	}

@@ -17,7 +17,6 @@ func (t TransactionHandler) GetListTransaction(ctx context.Context, req *transac
 		TrxId:       uuid.New().String(),
 	}
 	defer l.CreateNewLog()
-
 	data := request.NewGeneralFilter(req)
 
 	prd, err := t.transaction.GetListTransaction(ctx, data)

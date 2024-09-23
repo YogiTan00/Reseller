@@ -19,6 +19,7 @@ const (
 	DbPass          = "db_pass"
 	DbName          = "db_name"
 	Migration       = "migration"
+	MigrationPath   = "migration_path"
 	PathLogs        = "path_logs"
 )
 
@@ -35,6 +36,7 @@ type Config struct {
 	DbPass          string
 	DbName          string
 	Migration       string
+	MigrationPath   string
 	PathLogs        string
 }
 
@@ -52,6 +54,7 @@ func NewConfig() *Config {
 		DbPass:          utils.NewEnv(DbPass),
 		DbName:          utils.NewEnv(DbName),
 		Migration:       utils.NewEnv(Migration),
+		MigrationPath:   utils.NewEnv(MigrationPath),
 		PathLogs:        utils.NewEnvDefault(PathLogs, os.TempDir()),
 	}
 	err := cfg.Validate()

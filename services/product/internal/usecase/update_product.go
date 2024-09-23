@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (p ProductUsecase) UpdateProduct(ctx context.Context, prd *entity.ProductDto) error {
+func (p *ProductUsecase) UpdateProduct(ctx context.Context, prd *entity.ProductDto) error {
 	err := uuid.Validate(prd.Id)
 	if err != nil {
 		return err

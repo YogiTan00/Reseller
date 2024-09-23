@@ -6,7 +6,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/product/domain/entity"
 )
 
-func (p ProductUsecase) CreateProduct(ctx context.Context, prd *entity.ProductDto) error {
+func (p *ProductUsecase) CreateProduct(ctx context.Context, prd *entity.ProductDto) error {
 	err := prd.Validate()
 	if err != nil {
 		return err

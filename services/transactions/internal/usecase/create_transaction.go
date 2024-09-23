@@ -6,7 +6,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/transactions/domain/entity"
 )
 
-func (t TransactionUsecase) CreateTransaction(ctx context.Context, trans *entity.TransactionDto) error {
+func (t *TransactionUsecase) CreateTransaction(ctx context.Context, trans *entity.TransactionDto) error {
 	err := trans.Validate()
 	if err != nil {
 		return err

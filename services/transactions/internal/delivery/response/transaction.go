@@ -11,6 +11,7 @@ func TransactionResponse(trns *entity.TransactionDto) *transactionPb.Transaction
 	return &transactionPb.Transaction{
 		Id:          trns.Id,
 		IdName:      trns.IdName,
+		Name:        trns.Name,
 		Return:      wrapperspb.Bool(*trns.ReturnTrans),
 		SalesDate:   timestamppb.New(*trns.SalesDate),
 		Unit:        uint32(trns.Unit),

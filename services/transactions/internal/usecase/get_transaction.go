@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (t TransactionUsecase) GetDetailTransaction(ctx context.Context, transId string) (*entity.TransactionDto, error) {
+func (t *TransactionUsecase) GetDetailTransaction(ctx context.Context, transId string) (*entity.TransactionDto, error) {
 	err := uuid.Validate(transId)
 	if err != nil {
 		return nil, err
@@ -17,15 +17,25 @@ func (t TransactionUsecase) GetDetailTransaction(ctx context.Context, transId st
 		Id:        transId,
 		IsDeleted: true,
 	}
-	prd, err := t.repoTransaction.GetDetailTransaction(ctx, filter)
+	trans, err := t.repoTransaction.GetDetailTransaction(ctx, filter)
 	if err != nil {
 		t.l.Error(err)
 		return nil, exceptions.ErrInternalServer
 	}
 
-	if prd == nil {
+	if trans == nil {
 		return nil, exceptions.ErrNotFound("transaction")
 	}
 
-	return prd, nil
+	prod, err := t.serviceProduct.GetDetailProduct(t.l.TrxId, trans.IdName)
+	if err != nil {
+		t.l.Error(err)
+	}
+	if prod != nil {
+		trans.Name = prod.Name
+	} else {
+		prod.Name = "(Unavailable)"
+	}
+
+	return trans, nil
 }

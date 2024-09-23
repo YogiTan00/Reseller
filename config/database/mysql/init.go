@@ -87,7 +87,7 @@ func NewMigration(cfg *config.Config) {
 	}
 
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://config/database/mysql/migrations",
+		fmt.Sprintf("file://%s", cfg.MigrationPath),
 		cfg.DbName,
 		driver,
 	)

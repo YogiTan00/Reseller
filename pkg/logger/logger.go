@@ -40,7 +40,7 @@ func (l *Logger) Info(message any) {
 	if l.StatusCode != 0 {
 		if l.ResponseData != nil {
 			result, _ := json.Marshal(l.ResponseData)
-			l.log.Println(string(result))
+			l.log.Println(l.TrxId, string(result))
 		}
 	} else {
 		l.log.Println(message)
@@ -55,8 +55,11 @@ func (l *Logger) Error(err error) {
 	}
 }
 
-func (l *Logger) InfoWithData(message string) {
+func (l *Logger) InfoWithData(message string, data any) {
 	l.log.Println(strings.Title(message))
+	if data != nil {
+		l.log.Println(data)
+	}
 	if l.ResponseData != nil {
 		l.log.Println(l.ResponseData)
 	}

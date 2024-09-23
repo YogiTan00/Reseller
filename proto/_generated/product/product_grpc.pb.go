@@ -24,6 +24,7 @@ const (
 	ProductService_GetListProduct_FullMethodName = "/productPb.ProductService/GetListProduct"
 	ProductService_GetProduct_FullMethodName     = "/productPb.ProductService/GetProduct"
 	ProductService_UpdateProduct_FullMethodName  = "/productPb.ProductService/UpdateProduct"
+	ProductService_RpcGetProduct_FullMethodName  = "/productPb.ProductService/RpcGetProduct"
 )
 
 // ProductServiceClient is the client API for ProductService service.
@@ -35,6 +36,8 @@ type ProductServiceClient interface {
 	GetListProduct(ctx context.Context, in *GeneralFilter, opts ...grpc.CallOption) (*ProductList, error)
 	GetProduct(ctx context.Context, in *GeneralIdRequest, opts ...grpc.CallOption) (*Product, error)
 	UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*GeneralResponse, error)
+	// Rpc
+	RpcGetProduct(ctx context.Context, in *GeneralIdRequest, opts ...grpc.CallOption) (*Product, error)
 }
 
 type productServiceClient struct {
@@ -95,6 +98,16 @@ func (c *productServiceClient) UpdateProduct(ctx context.Context, in *Product, o
 	return out, nil
 }
 
+func (c *productServiceClient) RpcGetProduct(ctx context.Context, in *GeneralIdRequest, opts ...grpc.CallOption) (*Product, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Product)
+	err := c.cc.Invoke(ctx, ProductService_RpcGetProduct_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServiceServer is the server API for ProductService service.
 // All implementations should embed UnimplementedProductServiceServer
 // for forward compatibility
@@ -104,6 +117,8 @@ type ProductServiceServer interface {
 	GetListProduct(context.Context, *GeneralFilter) (*ProductList, error)
 	GetProduct(context.Context, *GeneralIdRequest) (*Product, error)
 	UpdateProduct(context.Context, *Product) (*GeneralResponse, error)
+	// Rpc
+	RpcGetProduct(context.Context, *GeneralIdRequest) (*Product, error)
 }
 
 // UnimplementedProductServiceServer should be embedded to have forward compatible implementations.
@@ -124,6 +139,9 @@ func (UnimplementedProductServiceServer) GetProduct(context.Context, *GeneralIdR
 }
 func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *Product) (*GeneralResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProduct not implemented")
+}
+func (UnimplementedProductServiceServer) RpcGetProduct(context.Context, *GeneralIdRequest) (*Product, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RpcGetProduct not implemented")
 }
 
 // UnsafeProductServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -227,6 +245,24 @@ func _ProductService_UpdateProduct_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_RpcGetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GeneralIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).RpcGetProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductService_RpcGetProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).RpcGetProduct(ctx, req.(*GeneralIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductService_ServiceDesc is the grpc.ServiceDesc for ProductService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -253,6 +289,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateProduct",
 			Handler:    _ProductService_UpdateProduct_Handler,
+		},
+		{
+			MethodName: "RpcGetProduct",
+			Handler:    _ProductService_RpcGetProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
