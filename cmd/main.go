@@ -24,6 +24,7 @@ func main() {
 			EndPoint: "Main",
 		}
 		cfg     = config.NewConfig()
+		cfgHtml = html.NewConfig()
 		db      = initMysql.InitMysqlDB(cfg)
 		ctx     = context.Background()
 		muxHttp = runtime.NewServeMux()
@@ -56,9 +57,10 @@ func main() {
 	transaction.Create(ctx, muxHttp, cfg.PortTransaction, opts)
 
 	r := mux.NewRouter()
+	fs := http.StripPrefix("/", http.FileServer(http.Dir(cfgHtml.HTMLPath)))
 	r.HandleFunc("/", html.HomeHandler())
 	r.HandleFunc("/product", html.ProductHandler())
-	r.PathPrefix("/").Handler(muxHttp)
+	r.PathPrefix("/").Handler(http.StripPrefix("/", fs))
 
 	l.Info(fmt.Sprintf("Serving HTTP and gRPC-Gateway on %s", cfg.Port))
 	l.Fatal(http.ListenAndServe(cfg.Port, r))

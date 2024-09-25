@@ -7,20 +7,20 @@ import (
 )
 
 const (
-	Port            = "port"
-	PortProduct     = "port_product"
-	PortTransaction = "port_transaction"
-	Domain          = "domain"
-	Debug           = "debug"
-	Address         = "address"
-	DbHost          = "db_host"
-	DbPort          = "db_port"
-	DbUser          = "db_user"
-	DbPass          = "db_pass"
-	DbName          = "db_name"
-	Migration       = "migration"
-	MigrationPath   = "migration_path"
-	PathLogs        = "path_logs"
+	Port            = "PORT"
+	PortProduct     = "PORT_PRODUCT"
+	PortTransaction = "PORT_TRANSACTION"
+	Domain          = "DOMAIN"
+	Debug           = "DEBUG"
+	Address         = "ADDRESS"
+	DbHost          = "DB_HOST"
+	DbPort          = "DB_PORT"
+	DbUser          = "DB_USER"
+	DbPass          = "DB_PASS"
+	DbName          = "DB_NAME"
+	Migration       = "MIGRATION"
+	MigrationPath   = "MIGRATION_PATH"
+	PathLogs        = "PATH_LOGS"
 )
 
 type Config struct {

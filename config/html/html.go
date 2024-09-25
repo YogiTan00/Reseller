@@ -2,16 +2,30 @@ package html
 
 import (
 	"github.com/YogiTan00/Reseller/pkg/logger"
+	"github.com/YogiTan00/Reseller/pkg/utils"
 	"github.com/google/uuid"
 	"html/template"
 	"net/http"
-	"os"
+)
+
+const (
+	HtmlPath = "HTML_PATH"
 )
 
 var (
 // homeTemplate    = template.Must(template.ParseFiles(filepath.Join("home", "../services/index.html")))
 // serviceTemplate = template.Must(template.ParseFiles(filepath.Join("service", "../services/product/html/index.html")))
 )
+
+type Config struct {
+	HTMLPath string
+}
+
+func NewConfig() *Config {
+	return &Config{
+		HTMLPath: utils.NewEnv(HtmlPath),
+	}
+}
 
 func InitHtml(path string) (*template.Template, error) {
 	tmpl, err := template.ParseFiles(path)
@@ -28,7 +42,8 @@ func HomeHandler() http.HandlerFunc {
 		TrxId:    uuid.New().String(),
 	}
 	defer l.CreateNewLog()
-	tmpl, err := InitHtml(os.Getenv("html_home"))
+	cfg := NewConfig()
+	tmpl, err := InitHtml(cfg.HTMLPath + "/services/html/index.html")
 	if err != nil {
 		l.Error(err)
 	}
@@ -46,10 +61,12 @@ func ProductHandler() http.HandlerFunc {
 		TrxId:    uuid.New().String(),
 	}
 	defer l.CreateNewLog()
-	tmpl, err := InitHtml(os.Getenv("html_product"))
+	cfg := NewConfig()
+	tmpl, err := InitHtml(cfg.HTMLPath + "/services/html/product/index.html")
 	if err != nil {
 		l.Error(err)
 	}
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		err = tmpl.Execute(w, nil)
 		if err != nil {
