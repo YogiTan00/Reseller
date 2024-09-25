@@ -3,6 +3,7 @@ package usecase
 import (
 	"context"
 	"github.com/YogiTan00/Reseller/pkg/exceptions"
+	"github.com/YogiTan00/Reseller/pkg/utils"
 	"github.com/YogiTan00/Reseller/services/transactions/domain/entity"
 )
 
@@ -14,7 +15,7 @@ func (t *TransactionUsecase) GetListTransaction(ctx context.Context, filter *ent
 		return nil, exceptions.ErrInternalServer
 	}
 	for _, value := range prd {
-		prod, err := t.serviceProduct.GetDetailProduct(t.l.TrxId, value.IdName)
+		prod, err := t.serviceProduct.GetDetailProduct(utils.GetTrxId(ctx), value.IdName)
 		if err != nil {
 			t.l.Error(err)
 		}

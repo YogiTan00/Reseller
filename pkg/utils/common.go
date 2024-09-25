@@ -2,8 +2,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
-	"google.golang.org/grpc/metadata"
 )
 
 const (
@@ -11,40 +9,20 @@ const (
 )
 
 func GetTrxId(ctx context.Context) string {
-	if ctx == nil {
-		return ""
-	}
-	txID, ok := ctx.Value(HeaderTraceId).(string)
-	if !ok {
-		fmt.Println("Transaction ID not found in context")
-		return ""
-	}
-	return txID
-}
+	// Get trxId from the context
+	trxId, ok := ctx.Value(HeaderTraceId).(string)
 
-func GetMDWithTrxid(ctx context.Context, trxid string) metadata.MD {
-	if ctx == nil {
-		return metadata.MD{}
-	}
-	mds, ok := metadata.FromIncomingContext(ctx)
 	if ok {
-		if v := mds.Get(HeaderTraceId); len(v) > 0 {
-			if v[0] == "" {
-				mds.Set(HeaderTraceId, trxid)
-				return mds
-			}
-			return mds
-		}
-		mds.Append(HeaderTraceId, trxid)
-		return mds
+		return trxId
 	}
-	return metadata.Pairs(HeaderTraceId, trxid)
+
+	// If trxId is not found or is of the wrong type, return an empty string or handle as needed
+	return ""
 }
 
 func SetCustomMetaDataTransactionId(ctx context.Context, trxid string) context.Context {
 	if ctx == nil {
 		return context.Background()
 	}
-	mds := GetMDWithTrxid(ctx, trxid)
-	return metadata.NewIncomingContext(ctx, mds)
+	return context.WithValue(ctx, HeaderTraceId, trxid)
 }

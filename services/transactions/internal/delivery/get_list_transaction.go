@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/YogiTan00/Reseller/pkg/exceptions"
 	"github.com/YogiTan00/Reseller/pkg/logger"
+	"github.com/YogiTan00/Reseller/pkg/utils"
 	transactionPb "github.com/YogiTan00/Reseller/proto/_generated/transaction"
 	"github.com/YogiTan00/Reseller/services/transactions/internal/delivery/request"
 	"github.com/YogiTan00/Reseller/services/transactions/internal/delivery/response"
@@ -17,6 +18,7 @@ func (t TransactionHandler) GetListTransaction(ctx context.Context, req *transac
 		TrxId:       uuid.New().String(),
 	}
 	defer l.CreateNewLog()
+	ctx = utils.SetCustomMetaDataTransactionId(ctx, l.TrxId)
 	data := request.NewGeneralFilter(req)
 
 	prd, err := t.transaction.GetListTransaction(ctx, data)
