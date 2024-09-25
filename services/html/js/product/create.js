@@ -1,7 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('productForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
+export function createProduct() {
         const name = document.getElementById('name').value;
         const typeSize = document.getElementById('typeSize').value;
         const marketType = document.getElementById('marketType').value;
@@ -26,5 +23,4 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => alert('Product created with Name: ' + data.name)) // Adjust based on the actual response structure
             .catch(error => console.error('Error:', error));
-    });
-});
+}

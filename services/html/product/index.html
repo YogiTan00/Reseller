@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/image.css" rel="stylesheet">
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
     <link rel="stylesheet" href="../css/product/list.css">
 </head>
 <body>
@@ -42,14 +44,36 @@
 <div class="row col-12">
     <div class="col-2"></div>
     <div class="container mt-5 col-8">
-        <form id="productForm">
-            <input type="text" id="name" placeholder="Product Name" required>
-            <input type="text" id="typeSize" placeholder="Type Size" required>
-            <input type="text" id="marketType" placeholder="Market Type" required>
-            <input type="text" id="image" placeholder="Image" required>
-            <input type="text" id="defaultPrice" placeholder="Default Price" required>
-            <input type="text" id="price" placeholder="Price" required>
-            <button type="submit">Create Product</button>
+        <form id="product-form" class="row g-3" >
+            <div class="col-md-6">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="col-md-2">
+                <label for="typeSize" class="form-label">Type Size</label>
+                <input type="text" id="typeSize" class="form-control" required>
+            </div>
+            <div class="col-md-2">
+                <label for="marketType" class="form-label">Market Type</label>
+                <input type="text" id="marketType" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="image" class="form-label">Image</label>
+                <div class="custom-file-input-wrapper">
+                    <label for="image" class="btn btn-outline-secondary">Choose Image</label>
+                    <input type="file" id="image" class="custom-file-input" accept="image/*" required hidden>
+                    <span id="file-name" class="file-name">No file chosen</span>
+                </div>
+            </div>
+            <div>
+                <label for="defaultPrice" class="form-label">Default Price</label>
+                <input type="text" id="defaultPrice" class="form-control" required>
+            </div>
+            <div>
+                <label for="price" class="form-label">Price</label>
+                <input type="text" id="price" class="form-control" required>
+            </div>
+                <button type="submit" class="btn btn-primary">Create Product</button>
         </form>
         <ul id="productList"></ul>
 

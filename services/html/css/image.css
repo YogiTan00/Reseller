@@ -1,0 +1,18 @@
+/*Styles for the custom file input*/
+.custom-file-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.custom-file-input-wrapper .btn {
+    margin-right: 10px;
+}
+
+.file-name {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.custom-file-input {
+    display: none;
+}
