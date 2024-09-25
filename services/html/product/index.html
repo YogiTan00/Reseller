@@ -4,11 +4,11 @@
     <title>Bootstrap 5 Website Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/image.css" rel="stylesheet">
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/main.js"></script>
-    <link rel="stylesheet" href="../css/product/list.css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/image.css" rel="stylesheet">
+    <link href="/css/product/list.css" rel="stylesheet">
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <!--Header-->
@@ -73,8 +73,10 @@
                 <label for="price" class="form-label">Price</label>
                 <input type="text" id="price" class="form-control" required>
             </div>
-                <button type="submit" class="btn btn-primary">Create Product</button>
+                <button type="submit" id="createProduct" class="btn btn-primary">Create Product</button>
         </form>
+
+        <!--List of Products-->
         <ul id="productList"></ul>
 
         <!-- Import the main.js file as a module -->

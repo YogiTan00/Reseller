@@ -3,7 +3,7 @@ import { getProductList } from 'product/list.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Call createProduct when the relevant event occurs (e.g., form submission)
-    const createButton = document.getElementById('createButton'); // Replace with your actual button ID
+    const createButton = document.getElementById('createProduct'); // Replace with your actual button ID
     if (createButton) {
         createButton.addEventListener('click', createProduct);
     }
