@@ -57,10 +57,10 @@ func main() {
 	transaction.Create(ctx, muxHttp, cfg.PortTransaction, opts)
 
 	r := mux.NewRouter()
-	fs := http.StripPrefix("/", http.FileServer(http.Dir(cfgHtml.HTMLPath)))
+	r.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir(cfgHtml.HTMLPath+"services/html/"))))
 	r.HandleFunc("/", html.HomeHandler())
 	r.HandleFunc("/product", html.ProductHandler())
-	r.PathPrefix("/").Handler(http.StripPrefix("/", fs))
+	r.PathPrefix("/").Handler(muxHttp)
 
 	l.Info(fmt.Sprintf("Serving HTTP and gRPC-Gateway on %s", cfg.Port))
 	l.Fatal(http.ListenAndServe(cfg.Port, r))

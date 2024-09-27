@@ -1,0 +1,22 @@
+.round-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #007bff; /* Customize border color */
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.round-btn:hover {
+    border-color: #0056b3; /* Darken border on hover */
+}
+.round-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.custom-collapse {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}

@@ -4,11 +4,11 @@
     <title>Bootstrap 5 Website Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/image.css" rel="stylesheet">
-    <link href="/css/product/list.css" rel="stylesheet">
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
+    <link rel="stylesheet" href="/html/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/html/css/image.css">
+    <link rel="stylesheet" href="/html/css/product/list.css">
+    <link rel="stylesheet" href="/html/css/product/style.css">
+    <script src="/html/js/bootstrap.min.js"></script>
 </head>
 <body>
 <!--Header-->
@@ -44,43 +44,57 @@
 <div class="row col-12">
     <div class="col-2"></div>
     <div class="container mt-5 col-8">
-        <form id="product-form" class="row g-3" >
-            <div class="col-md-6">
-                <label for="name" class="form-label">Product Name</label>
-                <input type="text" id="name" class="form-control" required>
-            </div>
-            <div class="col-md-2">
-                <label for="typeSize" class="form-label">Type Size</label>
-                <input type="text" id="typeSize" class="form-control" required>
-            </div>
-            <div class="col-md-2">
-                <label for="marketType" class="form-label">Market Type</label>
-                <input type="text" id="marketType" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label for="image" class="form-label">Image</label>
-                <div class="custom-file-input-wrapper">
-                    <label for="image" class="btn btn-outline-secondary">Choose Image</label>
-                    <input type="file" id="image" class="custom-file-input" accept="image/*" required hidden>
-                    <span id="file-name" class="file-name">No file chosen</span>
+        <!-- Accordion for creating product -->
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <!-- No text, only an icon or custom style can go here -->
+                        <span class="me-auto">Create</span>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form id="product-form" class="row g-3" >
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="typeSize" class="form-label">Type Size</label>
+                            <input type="text" id="typeSize" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="marketType" class="form-label">Market Type</label>
+                            <input type="text" id="marketType" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="image" class="form-label">Image</label>
+                            <div class="custom-file-input-wrapper">
+                                <label for="image" class="btn btn-outline-secondary">Choose Image</label>
+                                <input type="file" id="image" class="custom-file-input" accept="image/*" required hidden>
+                                <span id="file-name" class="file-name">No file chosen</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="defaultPrice" class="form-label">Default Price</label>
+                            <input type="text" id="defaultPrice" class="form-control" required>
+                        </div>
+                        <div>
+                            <label for="price" class="form-label">Price</label>
+                            <input type="text" id="price" class="form-control" required>
+                        </div>
+                            <button type="submit" id="createProduct" class="btn btn-primary">Create Product</button>
+                    </form>
+                    </div>
                 </div>
             </div>
-            <div>
-                <label for="defaultPrice" class="form-label">Default Price</label>
-                <input type="text" id="defaultPrice" class="form-control" required>
-            </div>
-            <div>
-                <label for="price" class="form-label">Price</label>
-                <input type="text" id="price" class="form-control" required>
-            </div>
-                <button type="submit" id="createProduct" class="btn btn-primary">Create Product</button>
-        </form>
-
+        </div>
         <!--List of Products-->
         <ul id="productList"></ul>
 
         <!-- Import the main.js file as a module -->
-        <script type="module" src="../js/main.js"></script>
+        <script type="module" src="/html/js/main.js"></script>
     </div>
     <div class="col-2"></div>
 </div>
