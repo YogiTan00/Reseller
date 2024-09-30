@@ -5,6 +5,7 @@ import (
 	"github.com/YogiTan00/Reseller/pkg/utils"
 	"github.com/google/uuid"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -43,14 +44,14 @@ func HomeHandler() http.HandlerFunc {
 	}
 	defer l.CreateNewLog()
 	cfg := NewConfig()
-	tmpl, err := InitHtml(cfg.HTMLPath + "/services/html/index.html")
+	tmpl, err := InitHtml(cfg.HTMLPath + "/index.html")
 	if err != nil {
-		l.Error(err)
+		log.Fatal(err)
 	}
 	return func(w http.ResponseWriter, r *http.Request) {
 		err = tmpl.Execute(w, nil)
 		if err != nil {
-			l.Error(err)
+			log.Fatal(err)
 		}
 	}
 }
@@ -62,15 +63,14 @@ func ProductHandler() http.HandlerFunc {
 	}
 	defer l.CreateNewLog()
 	cfg := NewConfig()
-	tmpl, err := InitHtml(cfg.HTMLPath + "/services/html/product/index.html")
+	tmpl, err := InitHtml(cfg.HTMLPath + "/product/index.html")
 	if err != nil {
-		l.Error(err)
+		log.Fatal(err)
 	}
-
 	return func(w http.ResponseWriter, r *http.Request) {
 		err = tmpl.Execute(w, nil)
 		if err != nil {
-			l.Error(err)
+			log.Fatal(err)
 		}
 	}
 }

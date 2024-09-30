@@ -38,12 +38,22 @@ func (l *Logger) Info(message any) {
 		l.log.Println(l.EndPoint)
 	}
 	if l.StatusCode != 0 {
+		if l.RequestData != nil {
+			result, _ := json.Marshal(l.RequestData)
+			data := string(result)
+			if data != "{}" || len(data) > 2 {
+				l.log.Println(l.TrxId, data)
+			}
+		}
 		if l.ResponseData != nil {
 			result, _ := json.Marshal(l.ResponseData)
-			l.log.Println(l.TrxId, string(result))
+			data := string(result)
+			if data != "{}" || len(data) > 2 {
+				l.log.Println(l.TrxId, data)
+			}
 		}
 	} else {
-		l.log.Println(message)
+		l.log.Println(l.TrxId, message)
 	}
 }
 

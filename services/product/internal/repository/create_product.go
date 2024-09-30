@@ -8,7 +8,7 @@ import (
 
 func (p *ProductRepository) CreateProduct(ctx context.Context, prd *entity.Product) error {
 	mdl := mapper.ToModelProduct(prd)
-	tx := p.db.WithContext(ctx).Create(&mdl)
+	tx := p.db.WithContext(ctx).Table(mdl.TableName()).Create(&mdl)
 	if tx.Error != nil {
 		return tx.Error
 	}

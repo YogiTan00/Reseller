@@ -57,7 +57,7 @@ func main() {
 	transaction.Create(ctx, muxHttp, cfg.PortTransaction, opts)
 
 	r := mux.NewRouter()
-	r.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir(cfgHtml.HTMLPath+"services/html/"))))
+	r.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir(cfgHtml.HTMLPath))))
 	r.HandleFunc("/", html.HomeHandler())
 	r.HandleFunc("/product", html.ProductHandler())
 	r.PathPrefix("/").Handler(muxHttp)

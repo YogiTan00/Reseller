@@ -1,3 +1,5 @@
+document.getElementById('create-product').addEventListener('click', createProduct);
+
 export function createProduct() {
         const name = document.getElementById('name').value;
         const typeSize = document.getElementById('typeSize').value;
@@ -6,7 +8,7 @@ export function createProduct() {
         const defaultPrice = document.getElementById('defaultPrice').value;
         const price = document.getElementById('price').value;
 
-        fetch('/api/v1/product/create', {
+        fetch('http://localhost:8080/api/v1/product/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

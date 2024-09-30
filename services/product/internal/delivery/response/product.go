@@ -3,6 +3,7 @@ package response
 import (
 	productPb "github.com/YogiTan00/Reseller/proto/_generated/product"
 	"github.com/YogiTan00/Reseller/services/product/domain/entity"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func ProductResponse(prd *entity.ProductDto) *productPb.Product {
@@ -13,6 +14,8 @@ func ProductResponse(prd *entity.ProductDto) *productPb.Product {
 		Image:        prd.Image,
 		DefaultPrice: uint64(prd.DefaultPrice),
 		Price:        uint64(prd.Price),
+		CreatedAt:    timestamppb.New(prd.CreatedAt),
+		UpdatedAt:    timestamppb.New(prd.UpdatedAt),
 	}
 }
 

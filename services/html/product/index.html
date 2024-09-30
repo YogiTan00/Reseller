@@ -72,7 +72,7 @@
                             <label for="image" class="form-label">Image</label>
                             <div class="custom-file-input-wrapper">
                                 <label for="image" class="btn btn-outline-secondary">Choose Image</label>
-                                <input type="file" id="image" class="custom-file-input" accept="image/*" required hidden>
+                                <input type="file" id="image" class="custom-file-input" accept="image/*">
                                 <span id="file-name" class="file-name">No file chosen</span>
                             </div>
                         </div>
@@ -84,15 +84,18 @@
                             <label for="price" class="form-label">Price</label>
                             <input type="text" id="price" class="form-control" required>
                         </div>
-                            <button type="submit" id="createProduct" class="btn btn-primary">Create Product</button>
+                            <button type="submit" id="create-product" class="btn btn-primary">Create Product</button>
                     </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!--List of Products-->
-        <ul id="productList"></ul>
 
+        <!--List of Products-->
+        <ul id="product-list" class="list-group"></ul>
+
+
+        <script type="module"  src="/html/js/product/create.js"></script>
         <!-- Import the main.js file as a module -->
         <script type="module" src="/html/js/main.js"></script>
     </div>
