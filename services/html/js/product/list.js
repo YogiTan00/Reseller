@@ -15,16 +15,26 @@ export function getProductList() {
 
             // Iterate over each product and create a list item
             products.forEach(product => {
-                const productImage = product.image && product.image !== '' ? product.image : "";
+                const productImage = product.image && product.image !== '' ? product.image : "https://via.placeholder.com/150";
 
                 const productItem = `
-                        <li class="list-group-item d-flex align-items-center">
-                            <img src="${productImage}" alt="${product.name}">
-                            <div>
-                                <h5>${product.name}</h5>
-                                <p>Size: ${product.typeSize}</p>
-                                <p>Price: Rp ${product.price}</p>
+                        <li class=" col-12 list-group-item d-flex align-items-center">
+                            <div class="col-sm-1">
+                            <img src="${productImage}">
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>${product.name}</h5> 
+                            </div>
+                            <div class="col-sm-1">
+                                <p>Size: ${product.typeSize} </p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p>Price: Rp ${product.price} </p>
                                 <p>Default Price: Rp ${product.defaultPrice}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p>Edit</p>
+                                <p>Delete</p>
                             </div>
                         </li>
                     `;
