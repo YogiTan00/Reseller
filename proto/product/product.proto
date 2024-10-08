@@ -39,6 +39,7 @@ service ProductService {
 
 message ProductList {
   repeated Product data = 1;
+  Metadata meta = 2;
 }
 
 message Product {
@@ -50,6 +51,7 @@ message Product {
   uint64 price = 7;
   google.protobuf.Timestamp created_at = 8;
   google.protobuf.Timestamp updated_at = 9;
+  google.protobuf.Timestamp deleted_at = 10;
 }
 
 message GeneralResponse{
@@ -69,4 +71,9 @@ message GeneralFilter{
   string order_by = 2;
   uint32 limit = 3;
   uint32 offset = 4;
+  string sort = 5;
+}
+
+message Metadata{
+  uint32 count = 1;
 }

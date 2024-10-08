@@ -19,7 +19,7 @@ func ProductResponse(prd *entity.ProductDto) *productPb.Product {
 	}
 }
 
-func ProductListResponse(prd []*entity.ProductDto) *productPb.ProductList {
+func ProductListResponse(prd []*entity.ProductDto, count int64) *productPb.ProductList {
 	prdList := make([]*productPb.Product, 0)
 	for _, v := range prd {
 		prdList = append(prdList, ProductResponse(v))
@@ -27,5 +27,8 @@ func ProductListResponse(prd []*entity.ProductDto) *productPb.ProductList {
 
 	return &productPb.ProductList{
 		Data: prdList,
+		Meta: &productPb.Metadata{
+			Count: uint32(count),
+		},
 	}
 }

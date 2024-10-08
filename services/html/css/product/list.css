@@ -45,3 +45,16 @@
     background-color: #eaeaea;
     transition: background-color 0.3s ease;
 }
+
+#product-list .col-sm-1 {
+    text-align: center;
+}
+#product-list .col-price {
+    text-align: left;
+}
+#product-list .col-update {
+    text-align: center;
+}
+#product-list .col-sm-6 {
+    text-align: left;
+}

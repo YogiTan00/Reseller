@@ -20,14 +20,14 @@ func (prod *ProductHandler) GetListProduct(ctx context.Context, req *productPb.G
 
 	data := request.NewGeneralFilter(req)
 
-	prd, err := prod.product.GetListProduct(ctx, data)
+	prd, count, err := prod.product.GetListProduct(ctx, data)
 	if err != nil {
 		l.StatusCode = exceptions.MapToGrpcStatusCode(err)
 		l.ResponseData = err.Error()
 		return nil, exceptions.MapToGrpcStatusError(err)
 	}
 
-	rsp := response.ProductListResponse(prd)
+	rsp := response.ProductListResponse(prd, count)
 	l.ResponseData = rsp
 	return rsp, nil
 }

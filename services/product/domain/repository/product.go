@@ -11,4 +11,5 @@ type ProductRepositoryInterface interface {
 	DeleteProduct(ctx context.Context, productId string) error
 	GetDetailProduct(ctx context.Context, filter *entity.GeneralFilter) (*entity.ProductDto, error)
 	GetListProduct(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.ProductDto, error)
+	GetListProductCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error)
 }
