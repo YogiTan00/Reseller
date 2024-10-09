@@ -74,3 +74,22 @@ func ProductHandler() http.HandlerFunc {
 		}
 	}
 }
+
+func TransactionHandler() http.HandlerFunc {
+	l := logger.Logger{
+		EndPoint: "Html Transaction",
+		TrxId:    uuid.New().String(),
+	}
+	defer l.CreateNewLog()
+	cfg := NewConfig()
+	tmpl, err := InitHtml(cfg.HTMLPath + "/transaction/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return func(w http.ResponseWriter, r *http.Request) {
+		err = tmpl.Execute(w, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}

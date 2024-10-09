@@ -75,33 +75,47 @@ export function getProductList(page = 1, q = '', orderBy = '', sort = '') {
 }
 
 // Add event listener to the "Search" button
-document.getElementById('apply-filter').addEventListener('click', () => {
-    const search = document.getElementById('q').value; // Use 'q' for input ID
-    currentPage = 1;  // Reset to page 1 when searching
-    getProductList(currentPage, search, orderBy ,sort);
-});
+const applyFilterBtn = document.getElementById('apply-filter');
+if (applyFilterBtn) {
+    applyFilterBtn.addEventListener('click', () => {
+        const search = document.getElementById('q').value; // Use 'q' for input ID
+        currentPage = 1;  // Reset to page 1 when searching
+        getProductList(currentPage, search, orderBy ,sort);
+    });
+}
 
 // Add event listener to the "Next" button
-document.getElementById('next-page').addEventListener('click', () => {
-    currentPage += 1;
-    const search = document.getElementById('q').value; // Use 'q' for input ID
-    getProductList(currentPage, search, orderBy ,sort);
-});
+const nextPagerBtn = document.getElementById('next-page')
+if (nextPagerBtn) {
+    nextPagerBtn.addEventListener('click', () => {
+        currentPage += 1;
+        const search = document.getElementById('q').value; // Use 'q' for input ID
+        getProductList(currentPage, search, orderBy, sort);
+    });
+}
 
 // Add event listener to the "Previous" button
-document.getElementById('prev-page').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage -= 1;
+const prevPagerBtn = document.getElementById('prev-page')
+if (prevPagerBtn) {
+    prevPagerBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage -= 1;
+            const search = document.getElementById('q').value; // Use 'q' for input ID
+            getProductList(currentPage, search, orderBy ,sort);
+        }
+    });
+}
+
+const sortBtn = document.getElementById('sort');
+if (sortBtn) {
+    sortBtn.addEventListener('click', function() {
+        sort = (sort === 'asc') ? 'desc' : 'asc';
         const search = document.getElementById('q').value; // Use 'q' for input ID
         getProductList(currentPage, search, orderBy ,sort);
-    }
-});
+    });
+}
 
-document.getElementById('sort').addEventListener('click', function() {
-    sort = (sort === 'asc') ? 'desc' : 'asc';
-    const search = document.getElementById('q').value; // Use 'q' for input ID
-    getProductList(currentPage, search, orderBy ,sort);
+// Call this function after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    getProductList(); // Call the function on load to fetch the product list
 });
-
-// Initially fetch the product list for the first page
-getProductList(currentPage);

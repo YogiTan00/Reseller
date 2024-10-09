@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Transaction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html/css/bootstrap.min.css" >
+    <script src="/html/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--Header-->
+<div class="row col-12">
+    <div class="col-2"></div>
+    <div class="p-5 bg-primary text-white text-center col-8">
+        <h1>My First Bootstrap 5 Page</h1>
+        <p>Resize this responsive page to see the effect!</p>
+    </div>
+    <div class="col-2"></div>
+</div>
+<!--Navbar-->
+<div class="row col-12">
+    <div class="col-2"></div>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark col-sm-8">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Logo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/product">Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transaction">Transaction</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <div class="col-2"></div>
+</div>
+<!--Page-->
+<div class="row col-12">
+    <div class="col-2"></div>
+        <div class="container mt-5 col-8">
+
+            <!-- Accordion for creating product -->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <!-- No text, only an icon or custom style can go here -->
+                            <span class="me-auto">Create</span>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form id="product-form" class="row g-3" >
+                                <div class="col-md-6">
+                                    <label for="idName" class="form-label">Product</label>
+                                    <select id="idName" class="form-select" required>
+                                        <option value="">Select a Product</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="returnTrans" class="form-label">Retur</label>
+                                    <input type="text" id="returnTrans" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="salesDate" class="form-label">Date</label>
+                                    <input type="text" id="salesDate" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="unit" class="form-label">Unit</label>
+                                    <input type="text" id="unit" class="form-control" required>
+                                </div>
+                                <div>
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" id="description" class="form-control">
+                                </div>
+                                <button type="submit" id="create-transaction" class="btn btn-primary">Create Transaction</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import the main.js file as a module -->
+                <script type="module" src="/html/js/product/dropdown.js"></script>
+            </div>
+        </div>
+    <div class="col-2"></div>
+</div>
+<!--Footer-->
+<div class="row col-12">
+    <div class="col-2"></div>
+        <div class="mt-5 p-4 bg-dark text-white text-center col-8">
+    <p>Footer</p>
+</div>
+    <div class="col-2"></div>
+</div>
+
+</body>
+</html>

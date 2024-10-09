@@ -60,6 +60,7 @@ func main() {
 	r.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir(cfgHtml.HTMLPath))))
 	r.HandleFunc("/", html.HomeHandler())
 	r.HandleFunc("/product", html.ProductHandler())
+	r.HandleFunc("/transaction", html.TransactionHandler())
 	r.PathPrefix("/").Handler(muxHttp)
 
 	l.Info(fmt.Sprintf("Serving HTTP and gRPC-Gateway on %s", cfg.Port))
