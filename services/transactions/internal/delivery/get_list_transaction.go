@@ -21,14 +21,14 @@ func (t TransactionHandler) GetListTransaction(ctx context.Context, req *transac
 	ctx = utils.SetCustomMetaDataTransactionId(ctx, l.TrxId)
 	data := request.NewGeneralFilter(req)
 
-	prd, err := t.transaction.GetListTransaction(ctx, data)
+	prd, count, err := t.transaction.GetListTransaction(ctx, data)
 	if err != nil {
 		l.StatusCode = exceptions.MapToGrpcStatusCode(err)
 		l.ResponseData = err.Error()
 		return nil, exceptions.MapToGrpcStatusError(err)
 	}
 
-	rsp := response.TransactionListResponse(prd)
+	rsp := response.TransactionListResponse(prd, count)
 	l.ResponseData = rsp
 	return rsp, nil
 }

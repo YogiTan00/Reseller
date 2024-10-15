@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/html/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/html/css/transaction/list.css">
+    <link rel="stylesheet" href="/html/css/transaction/style.css">
     <script src="/html/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -87,7 +89,24 @@
 
                 <!-- Import the main.js file as a module -->
                 <script type="module" src="/html/js/product/dropdown.js"></script>
-                <script type="module" src="/html/js/main.js"></script>
+
+                <!--List of Products-->
+                <div class="filter-container">
+                    <label for="q" class="filter-label">Search:</label>
+                    <input type="text" id="q" placeholder="Search products...">
+                    <button id="apply-filter">Apply Filter</button>
+                    <button id="sort">Sort By Latest</button>
+                </div>
+                <ul id="transaction-list" class="list-group"></ul>
+                <!-- Pagination Controls -->
+                <div class="pagination-controls">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="current-page">1</span>
+                    <button id="next-page">Next</button>
+                </div>
+
+                <!-- Import the list.js file as a module -->
+                <script type="module" src="/html/js/transaction/list.js"></script>
             </div>
         </div>
     <div class="col-2"></div>

@@ -38,6 +38,7 @@ service TransactionService {
 
 message TransactionList{
   repeated Transaction data = 1;
+  Metadata meta = 2;
 }
 
 message Transaction {
@@ -68,4 +69,8 @@ message GeneralFilter{
   string order_by = 2;
   uint32 limit = 3;
   uint32 offset = 4;
+  string sort = 5;
+}
+message Metadata{
+  uint32 count = 1;
 }

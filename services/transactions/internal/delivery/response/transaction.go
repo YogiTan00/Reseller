@@ -19,7 +19,7 @@ func TransactionResponse(trns *entity.TransactionDto) *transactionPb.Transaction
 	}
 }
 
-func TransactionListResponse(prd []*entity.TransactionDto) *transactionPb.TransactionList {
+func TransactionListResponse(prd []*entity.TransactionDto, count int64) *transactionPb.TransactionList {
 	prdList := make([]*transactionPb.Transaction, 0)
 	for _, v := range prd {
 		prdList = append(prdList, TransactionResponse(v))
@@ -27,5 +27,8 @@ func TransactionListResponse(prd []*entity.TransactionDto) *transactionPb.Transa
 
 	return &transactionPb.TransactionList{
 		Data: prdList,
+		Meta: &transactionPb.Metadata{
+			Count: uint32(count),
+		},
 	}
 }

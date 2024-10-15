@@ -16,10 +16,18 @@ func (p *ProductRepository) txQueryProduct(tx *gorm.DB, f *entity.GeneralFilter)
 		if f.Q != "" {
 			tx = tx.Where("name LIKE ?", "%"+f.Q+"%")
 		}
-
 		if f.Option != nil {
+			var (
+				sort, orderBy string
+			)
+			if f.Option.Sort != "" {
+				sort = f.Option.Sort
+			}
 			if f.Option.OrderBy != "" {
-				tx = tx.Order(f.Option.OrderBy)
+				orderBy = f.Option.OrderBy
+			}
+			if sort != "" || orderBy != "" {
+				tx = tx.Order(orderBy + " " + sort)
 			}
 			if f.Option.Limit > 0 {
 				tx = tx.Limit(f.Option.Limit)

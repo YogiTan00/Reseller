@@ -56,10 +56,11 @@ func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.Transactio
 func NewGeneralFilter(req *transactionPb.GeneralFilter) *entity.GeneralFilter {
 	return &entity.GeneralFilter{
 		Q: req.GetQ(),
-		Option: entity.GeneralFilterOption{
+		Option: &entity.GeneralFilterOption{
 			OrderBy: req.GetOrderBy(),
 			Limit:   int(req.GetLimit()),
 			Offset:  int(req.GetOffset()),
+			Sort:    req.GetSort(),
 		},
 	}
 
