@@ -60,6 +60,7 @@ func NewGeneralFilter(req *transactionPb.GeneralFilter) *entity.GeneralFilter {
 			OrderBy: req.GetOrderBy(),
 			Limit:   int(req.GetLimit()),
 			Offset:  int(req.GetOffset()),
+			Sort:    req.GetSort(),
 		},
 	}
 

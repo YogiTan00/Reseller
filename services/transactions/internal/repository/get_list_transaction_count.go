@@ -6,7 +6,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/transactions/internal/repository/models"
 )
 
-func (t *TransactionRepository) GetListTransactionCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error) {
+func (t TransactionRepository) GetListTransactionCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error) {
 	var count int64
 	filter.DisableOption()
 	txQuery := t.db.WithContext(ctx).Table(models.Transaction{}.TableName())

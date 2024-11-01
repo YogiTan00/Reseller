@@ -52,8 +52,8 @@
 #transaction-list .col-sm-4 {
     text-align: left;
 }
-#transaction-list .col-price {
-    text-align: left;
+#transaction-list .col-date {
+    text-align: right;
 }
 #transaction-list .col-update {
     text-align: center;
