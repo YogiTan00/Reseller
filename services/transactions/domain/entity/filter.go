@@ -17,7 +17,3 @@ type GeneralFilterOption struct {
 func (f *GeneralFilter) DisableOption() {
 	f.Option = nil
 }
-
-func (f *GeneralFilter) DisableOption() {
-	f.Option = nil
-}

@@ -12,5 +12,4 @@ type TransactionRepositoryInterface interface {
 	GetListTransactionCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error)
 	GetDetailTransaction(ctx context.Context, filter *entity.GeneralFilter) (*entity.TransactionDto, error)
 	UpdateTransaction(ctx context.Context, trans *entity.Transaction) error
-	GetListTransactionCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error)
 }

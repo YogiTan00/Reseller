@@ -43,6 +43,7 @@ export function getTransactionList(page = 1, q = '', orderBy = '', sort = '') {
 
             // Render transaction items
             transactions.forEach(transaction => {
+                const date = new Date(transaction.salesDate);
                 const transactionItem = `
                 <li class="col-12 list-group-item d-flex align-items-center">
                     <div class="col-sm-4">
