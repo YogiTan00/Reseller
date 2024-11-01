@@ -10,7 +10,7 @@ type Transaction struct {
 	id          string
 	idName      string
 	name        string
-	returnTrans *bool
+	returnItem  *bool
 	salesDate   *time.Time
 	unit        int
 	description string
@@ -22,7 +22,7 @@ type TransactionDto struct {
 	Id          string
 	IdName      string
 	Name        string
-	ReturnTrans *bool
+	ReturnItem  *bool
 	SalesDate   *time.Time
 	Unit        int
 	Description string
@@ -39,8 +39,8 @@ func (t *Transaction) GetIdName() string {
 func (t *Transaction) GetName() string {
 	return t.name
 }
-func (t *Transaction) GetReturnTrans() *bool {
-	return t.returnTrans
+func (t *Transaction) GetReturnItem() *bool {
+	return t.returnItem
 }
 func (t *Transaction) GetSalesDate() *time.Time {
 	return t.salesDate
@@ -63,7 +63,7 @@ func (dto *TransactionDto) New() *Transaction {
 	return &Transaction{
 		id:          uuid.New().String(),
 		idName:      dto.IdName,
-		returnTrans: dto.ReturnTrans,
+		returnItem:  dto.ReturnItem,
 		salesDate:   dto.SalesDate,
 		unit:        dto.Unit,
 		description: dto.Description,
@@ -78,8 +78,8 @@ func (dto *TransactionDto) Update(data *TransactionDto) *Transaction {
 		dto.IdName = data.IdName
 	}
 
-	if data.ReturnTrans != nil {
-		dto.ReturnTrans = data.ReturnTrans
+	if data.ReturnItem != nil {
+		dto.ReturnItem = data.ReturnItem
 	}
 
 	if !data.SalesDate.IsZero() {
@@ -102,7 +102,7 @@ func (dto *TransactionDto) Create() *Transaction {
 	return &Transaction{
 		id:          dto.Id,
 		idName:      dto.IdName,
-		returnTrans: dto.ReturnTrans,
+		returnItem:  dto.ReturnItem,
 		salesDate:   dto.SalesDate,
 		unit:        dto.Unit,
 		description: dto.Description,

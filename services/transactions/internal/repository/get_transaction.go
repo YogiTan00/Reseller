@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (t TransactionRepository) GetDetailTransaction(ctx context.Context, filter *entity.GeneralFilter) (*entity.TransactionDto, error) {
+func (t *TransactionRepository) GetDetailTransaction(ctx context.Context, filter *entity.GeneralFilter) (*entity.TransactionDto, error) {
 	var mdl *models.Transaction
 	txQuery := t.db.WithContext(ctx).Model(mdl)
 	tx := t.txQueryTransaction(txQuery, filter).First(&mdl)

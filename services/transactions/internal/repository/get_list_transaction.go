@@ -7,7 +7,7 @@ import (
 	"github.com/YogiTan00/Reseller/services/transactions/internal/repository/models"
 )
 
-func (t TransactionRepository) GetListTransaction(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.TransactionDto, error) {
+func (t *TransactionRepository) GetListTransaction(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.TransactionDto, error) {
 	var mdl []*models.Transaction
 	txQuery := t.db.WithContext(ctx).Model(mdl)
 	tx := t.txQueryTransaction(txQuery, filter).Find(&mdl)

@@ -7,12 +7,18 @@ import (
 	"github.com/YogiTan00/Reseller/services/transactions/domain/entity"
 )
 
-func (t *TransactionUsecase) GetListTransaction(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.TransactionDto, error) {
+func (t *TransactionUsecase) GetListTransaction(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.TransactionDto, int64, error) {
 	filter.IsDeleted = true
 	prd, err := t.repoTransaction.GetListTransaction(ctx, filter)
 	if err != nil {
 		t.l.Error(err)
-		return nil, exceptions.ErrInternalServer
+		return nil, int64(0), exceptions.ErrInternalServer
+	}
+
+	count, err := t.repoTransaction.GetListTransactionCount(ctx, filter)
+	if err != nil {
+		t.l.Error(err)
+		return nil, int64(0), exceptions.ErrInternalServer
 	}
 	for _, value := range prd {
 		prod, err := t.serviceProduct.GetDetailProduct(utils.GetTrxId(ctx), value.IdName)
@@ -26,5 +32,5 @@ func (t *TransactionUsecase) GetListTransaction(ctx context.Context, filter *ent
 		}
 	}
 
-	return prd, nil
+	return prd, count, nil
 }

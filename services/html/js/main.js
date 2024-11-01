@@ -22,7 +22,9 @@ const decreaseBtn = document.getElementById('decreaseUnit');
 
 // Increase unit value
 increaseBtn.addEventListener('click', function() {
-    unitInput.value = parseInt(unitInput.value) + 1;
+    if (unitInput.value > 0) {
+        unitInput.value = parseInt(unitInput.value) + 1;
+    }
 });
 
 // Decrease unit value, ensuring it doesn't go below 0

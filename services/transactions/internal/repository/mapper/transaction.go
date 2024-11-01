@@ -9,7 +9,7 @@ func ToModelTransaction(p *entity.Transaction) *models.Transaction {
 	return &models.Transaction{
 		Id:          p.GetId(),
 		IdName:      p.GetIdName(),
-		Return:      p.GetReturnTrans(),
+		Return:      p.GetReturnItem(),
 		SalesDate:   p.GetSalesDate(),
 		Unit:        p.GetUnit(),
 		Description: p.GetDescription(),
@@ -21,7 +21,7 @@ func ToEntityTransaction(p *models.Transaction) *entity.TransactionDto {
 	return &entity.TransactionDto{
 		Id:          p.Id,
 		IdName:      p.IdName,
-		ReturnTrans: p.Return,
+		ReturnItem:  p.Return,
 		SalesDate:   p.SalesDate,
 		Unit:        p.Unit,
 		Description: p.Description,

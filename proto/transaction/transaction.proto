@@ -38,13 +38,14 @@ service TransactionService {
 
 message TransactionList{
   repeated Transaction data = 1;
+  Metadata meta = 2;
 }
 
 message Transaction {
   string id = 1;
   string id_name = 2;
   string name = 3;
-  google.protobuf.BoolValue return = 4;
+  google.protobuf.BoolValue return_item = 4;
   google.protobuf.Timestamp sales_date = 5;
   uint32 unit = 6;
   string description = 7;
@@ -68,4 +69,9 @@ message GeneralFilter{
   string order_by = 2;
   uint32 limit = 3;
   uint32 offset = 4;
+  string sort = 5;
+}
+
+message Metadata{
+  uint32 count = 1;
 }

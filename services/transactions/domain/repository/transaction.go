@@ -9,6 +9,7 @@ type TransactionRepositoryInterface interface {
 	CreateTransaction(ctx context.Context, trans *entity.Transaction) error
 	DeleteTransaction(ctx context.Context, transId string) error
 	GetListTransaction(ctx context.Context, filter *entity.GeneralFilter) ([]*entity.TransactionDto, error)
+	GetListTransactionCount(ctx context.Context, filter *entity.GeneralFilter) (int64, error)
 	GetDetailTransaction(ctx context.Context, filter *entity.GeneralFilter) (*entity.TransactionDto, error)
 	UpdateTransaction(ctx context.Context, trans *entity.Transaction) error
 }

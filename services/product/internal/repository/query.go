@@ -30,5 +30,4 @@ func (p *ProductRepository) txQueryProduct(tx *gorm.DB, f *entity.GeneralFilter)
 		}
 	}
 	return tx
-
 }

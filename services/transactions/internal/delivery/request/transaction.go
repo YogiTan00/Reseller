@@ -11,8 +11,8 @@ func NewTransactionRequest(req *transactionPb.Transaction) *entity.TransactionDt
 		returnTrans *bool
 		salesDate   *time.Time
 	)
-	if req.GetReturn() != nil {
-		trans := req.GetReturn().GetValue()
+	if req.GetReturnItem() != nil {
+		trans := req.GetReturnItem().GetValue()
 		returnTrans = &trans
 	}
 	if req.GetSalesDate() != nil {
@@ -22,7 +22,7 @@ func NewTransactionRequest(req *transactionPb.Transaction) *entity.TransactionDt
 
 	return &entity.TransactionDto{
 		IdName:      req.GetIdName(),
-		ReturnTrans: returnTrans,
+		ReturnItem:  returnTrans,
 		SalesDate:   salesDate,
 		Unit:        int(req.GetUnit()),
 		Description: req.GetDescription(),
@@ -34,8 +34,8 @@ func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.Transactio
 		returnTrans *bool
 		salesDate   *time.Time
 	)
-	if req.GetReturn() != nil {
-		trans := req.GetReturn().GetValue()
+	if req.GetReturnItem() != nil {
+		trans := req.GetReturnItem().GetValue()
 		returnTrans = &trans
 	}
 	if req.GetSalesDate() != nil {
@@ -46,7 +46,7 @@ func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.Transactio
 	return &entity.TransactionDto{
 		Id:          req.GetId(),
 		IdName:      req.GetIdName(),
-		ReturnTrans: returnTrans,
+		ReturnItem:  returnTrans,
 		SalesDate:   salesDate,
 		Unit:        int(req.GetUnit()),
 		Description: req.GetDescription(),
@@ -56,7 +56,7 @@ func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.Transactio
 func NewGeneralFilter(req *transactionPb.GeneralFilter) *entity.GeneralFilter {
 	return &entity.GeneralFilter{
 		Q: req.GetQ(),
-		Option: entity.GeneralFilterOption{
+		Option: &entity.GeneralFilterOption{
 			OrderBy: req.GetOrderBy(),
 			Limit:   int(req.GetLimit()),
 			Offset:  int(req.GetOffset()),
