@@ -9,15 +9,14 @@ import (
 func NewTransactionRequest(req *transactionPb.Transaction) *entity.TransactionDto {
 	var (
 		returnTrans *bool
-		salesDate   *time.Time
 	)
 	if req.GetReturnItem() != nil {
 		trans := req.GetReturnItem().GetValue()
 		returnTrans = &trans
 	}
-	if req.GetSalesDate() != nil {
-		sales := req.GetSalesDate().AsTime()
-		salesDate = &sales
+	salesDate := time.Time{}
+	if req.GetSalesDate() != "" {
+		salesDate, _ = time.Parse(time.DateOnly, req.GetSalesDate())
 	}
 
 	return &entity.TransactionDto{
@@ -32,15 +31,14 @@ func NewTransactionRequest(req *transactionPb.Transaction) *entity.TransactionDt
 func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.TransactionDto {
 	var (
 		returnTrans *bool
-		salesDate   *time.Time
 	)
 	if req.GetReturnItem() != nil {
 		trans := req.GetReturnItem().GetValue()
 		returnTrans = &trans
 	}
-	if req.GetSalesDate() != nil {
-		sales := req.GetSalesDate().AsTime()
-		salesDate = &sales
+	salesDate := time.Time{}
+	if req.GetSalesDate() != "" {
+		salesDate, _ = time.Parse(time.DateOnly, req.GetSalesDate())
 	}
 
 	return &entity.TransactionDto{

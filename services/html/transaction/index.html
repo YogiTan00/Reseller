@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/html/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/html/css/transaction/list.css">
     <link rel="stylesheet" href="/html/css/transaction/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/html/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -45,7 +46,7 @@
         <div class="container mt-5 col-8">
 
             <!-- Import the main.js file as a module -->
-            <script type="module" src="/html/js/product/dropdown.js"></script>
+            <script type="module" src="/html/js/transaction/dropdown.js"></script>
 
             <!-- Accordion for creating product -->
             <div class="accordion" id="accordionExample">
@@ -58,12 +59,13 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <form id="transaction-form" class="row g-3" >
+                            <form id="transaction-form" class="row g-3"  method="post">
                                 <div class="col-md-6">
                                     <label for="idName" class="form-label">Product</label>
                                     <select id="idName" class="form-select" required>
-                                        <option value="">Select a Product</option>
+                                        <option value="" disabled selected>Select a Product</option>
                                     </select>
+                                    <input type="hidden" id="productName">
                                 </div>
                                 <div class="col-md-1">
                                     <label for="returnItem" class="form-label">Return</label>

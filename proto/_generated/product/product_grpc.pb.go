@@ -36,7 +36,7 @@ type ProductServiceClient interface {
 	GetListProduct(ctx context.Context, in *GeneralFilter, opts ...grpc.CallOption) (*ProductList, error)
 	GetProduct(ctx context.Context, in *GeneralIdRequest, opts ...grpc.CallOption) (*Product, error)
 	UpdateProduct(ctx context.Context, in *Product, opts ...grpc.CallOption) (*GeneralResponse, error)
-	//Rpc
+	// Rpc
 	RpcGetProduct(ctx context.Context, in *GeneralIdRequest, opts ...grpc.CallOption) (*Product, error)
 }
 
@@ -117,7 +117,7 @@ type ProductServiceServer interface {
 	GetListProduct(context.Context, *GeneralFilter) (*ProductList, error)
 	GetProduct(context.Context, *GeneralIdRequest) (*Product, error)
 	UpdateProduct(context.Context, *Product) (*GeneralResponse, error)
-	//Rpc
+	// Rpc
 	RpcGetProduct(context.Context, *GeneralIdRequest) (*Product, error)
 }
 

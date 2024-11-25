@@ -11,7 +11,7 @@ type Transaction struct {
 	idName      string
 	name        string
 	returnItem  *bool
-	salesDate   *time.Time
+	salesDate   time.Time
 	unit        int
 	description string
 	createdAt   time.Time
@@ -23,7 +23,7 @@ type TransactionDto struct {
 	IdName      string
 	Name        string
 	ReturnItem  *bool
-	SalesDate   *time.Time
+	SalesDate   time.Time
 	Unit        int
 	Description string
 	CreatedAt   time.Time
@@ -42,7 +42,7 @@ func (t *Transaction) GetName() string {
 func (t *Transaction) GetReturnItem() *bool {
 	return t.returnItem
 }
-func (t *Transaction) GetSalesDate() *time.Time {
+func (t *Transaction) GetSalesDate() time.Time {
 	return t.salesDate
 }
 func (t *Transaction) GetUnit() int {
