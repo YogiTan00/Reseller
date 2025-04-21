@@ -3,7 +3,7 @@ const limit = 10; // Set the number of transactions per page
 let orderBy = 'created_at';
 let sort = 'asc';
 
-export function getTransactionList(page = 1, q = '', orderBy = '', sort = '') {
+export function getTransactionList(page = 1, q = '') {
     const offset = (page - 1) * limit; // Calculate offset based on page
     const queryParams = new URLSearchParams({
         q: q,
@@ -82,7 +82,7 @@ if (applyFilterBtn) {
     applyFilterBtn.addEventListener('click', () => {
         const search = document.getElementById('q').value;
         currentPage = 1;  // Reset to page 1 when searching
-        getTransactionList(currentPage, search, orderBy, sort);
+        getTransactionList(currentPage, search);
     });
 }
 
@@ -91,7 +91,7 @@ if (nextPagerBtn) {
     nextPagerBtn.addEventListener('click', () => {
         currentPage += 1;
         const search = document.getElementById('q').value;
-        getTransactionList(currentPage, search, orderBy, sort);
+        getTransactionList(currentPage, search);
     });
 }
 
@@ -101,7 +101,7 @@ if (prevPagerBtn) {
         if (currentPage > 1) {
             currentPage -= 1;
             const search = document.getElementById('q').value;
-            getTransactionList(currentPage, search, orderBy, sort);
+            getTransactionList(currentPage, search);
         }
     });
 }
@@ -111,7 +111,7 @@ if (sortBtn) {
     sortBtn.addEventListener('click', () => {
         sort = (sort === 'asc') ? 'desc' : 'asc';
         const search = document.getElementById('q').value;
-        getTransactionList(currentPage, search, orderBy, sort);
+        getTransactionList(currentPage, search);
     });
 }
 
