@@ -20,16 +20,16 @@ const unitInput = document.getElementById('unit');
 const increaseBtn = document.getElementById('increaseUnit');
 const decreaseBtn = document.getElementById('decreaseUnit');
 
-// Increase unit value
-increaseBtn.addEventListener('click', function() {
-    if (unitInput.value > 0) {
-        unitInput.value = parseInt(unitInput.value) + 1;
-    }
-});
-
-// Decrease unit value, ensuring it doesn't go below 0
-decreaseBtn.addEventListener('click', function() {
-    if (unitInput.value > 0) {
-        unitInput.value = parseInt(unitInput.value) - 1;
-    }
-});
+// // Increase unit value
+// increaseBtn.addEventListener('click', function() {
+//     if (unitInput.value > 0) {
+//         unitInput.value = parseInt(unitInput.value) + 1;
+//     }
+// });
+//
+// // Decrease unit value, ensuring it doesn't go below 0
+// decreaseBtn.addEventListener('click', function() {
+//     if (unitInput.value > 0) {
+//         unitInput.value = parseInt(unitInput.value) - 1;
+//     }
+// });
