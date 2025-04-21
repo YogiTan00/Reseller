@@ -7,6 +7,7 @@ import (
 )
 
 const (
+	EnvExternal     = "ENV_EXTERNAL"
 	Port            = "PORT"
 	PortProduct     = "PORT_PRODUCT"
 	PortTransaction = "PORT_TRANSACTION"

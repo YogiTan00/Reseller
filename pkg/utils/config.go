@@ -4,13 +4,21 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
+	"strconv"
 )
 
 func NewEnv(key string) string {
-	// load .env file
-	err := godotenv.Load(".env")
+	// read env from os
+	env, err := strconv.ParseBool(os.Getenv("ENV_EXTERNAL"))
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Println("Use External Environment")
+	}
+	if !env {
+		// load .env file
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatalf("Error loading .env file")
+		}
 	}
 	return os.Getenv(key)
 }
