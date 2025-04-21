@@ -4,6 +4,7 @@ import (
 	transactionPb "github.com/YogiTan00/Reseller/proto/_generated/transaction"
 	"github.com/YogiTan00/Reseller/services/transactions/domain/entity"
 	"google.golang.org/protobuf/types/known/wrapperspb"
+	"time"
 )
 
 func TransactionResponse(trns *entity.TransactionDto) *transactionPb.Transaction {
@@ -18,7 +19,7 @@ func TransactionResponse(trns *entity.TransactionDto) *transactionPb.Transaction
 		IdName:      trns.IdName,
 		Name:        trns.Name,
 		ReturnItem:  returnItem,
-		SalesDate:   trns.SalesDate.String(),
+		SalesDate:   trns.SalesDate.Format(time.DateOnly),
 		Unit:        uint32(trns.Unit),
 		Description: trns.Description,
 	}
