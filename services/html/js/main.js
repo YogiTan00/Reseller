@@ -1,7 +1,7 @@
 // Script to handle image file name display
 const imageInput = document.getElementById('image');
 if (imageInput) {
-    imageInput.addEventListener('change', function(event) {
+    imageInput.addEventListener('change', function (event) {
         const fileInput = event.target;
         const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file chosen';
 
@@ -13,7 +13,7 @@ if (imageInput) {
 
 // Get the current date in yyyy-mm-dd format
 const today = new Date().toISOString().split('T')[0];
-    document.getElementById('dateNow').value = today;
+document.getElementById('dateNow').value = today;
 
 // Get the input and buttons
 const unitInput = document.getElementById('unit');
@@ -33,3 +33,19 @@ const decreaseBtn = document.getElementById('decreaseUnit');
 //         unitInput.value = parseInt(unitInput.value) - 1;
 //     }
 // });
+
+function DateRangePickerById() {
+    const input = document.getElementById('date-range');
+    if (input) {
+        $(input).daterangepicker({
+            opens: 'left',
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    DateRangePickerById();
+});

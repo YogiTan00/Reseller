@@ -4,11 +4,19 @@
     <title>Transaction</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/html/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="/html/css/transaction/list.css">
-    <link rel="stylesheet" href="/html/css/transaction/style.css">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/html/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/html/css/library/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="/html/css/transaction/list.css">
+    <link rel="stylesheet" type="text/css" href="/html/css/transaction/style.css">
+    <script src="/html/js/library/axios.min.js"></script>
+    <script src="/html/js/library/bootstrap.min.js"></script>
+
+
+    <!-- Date Range -->
+    <link rel="stylesheet" href="/html/css/library/bootstrap-icons.css">
+    <link rel="stylesheet" href="/html/css/library/daterangepicker.css" />
+    <script src="/html/js/library/jquery.min.js"></script>
+    <script src="/html/js/library/moment.min.js"></script>
+    <script src="/html/js/library/daterangepicker.js"></script>
 </head>
 <body>
 <!--Header-->
@@ -95,6 +103,10 @@
 
                 <!--List of Products-->
                 <div class="filter-container">
+                    <label for="date-range" style="cursor: pointer">
+                        <img src="/html/images/calendar.svg" alt="Select date" width="20" height="20">
+                    </label>
+                    <input id="date-range" class="visually-hidden"/>
                     <label for="q" class="filter-label">Search:</label>
                     <input type="text" id="q" placeholder="Search products...">
                     <button id="apply-filter">Apply Filter</button>

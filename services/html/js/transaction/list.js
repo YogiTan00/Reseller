@@ -2,15 +2,25 @@ let currentPage = 1; // Keep track of the current page
 const limit = 10; // Set the number of transactions per page
 let orderBy = 'created_at';
 let sort = 'asc';
+let startDate='';
+let endDate='';
 
 export function getTransactionList(page = 1, q = '') {
+    const input = document.getElementById('date-range');
+    if (input && input.value) {
+        const dates = input.value.split(' - ');
+        startDate = dates[0];
+        endDate = dates[1];
+    }
     const offset = (page - 1) * limit; // Calculate offset based on page
     const queryParams = new URLSearchParams({
         q: q,
         orderBy: orderBy,
         limit: limit,
         offset: offset,
-        sort: sort
+        sort: sort,
+        startDate: startDate,
+        endDate: endDate
     });
     fetch(`http://localhost:8080/api/v1/transaction/list?${queryParams}`, {
         method: 'GET',
