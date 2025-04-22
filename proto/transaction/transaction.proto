@@ -70,6 +70,8 @@ message GeneralFilter{
   uint32 limit = 3;
   uint32 offset = 4;
   string sort = 5;
+  string start_date = 6;
+  string end_date = 7;
 }
 
 message Metadata{
