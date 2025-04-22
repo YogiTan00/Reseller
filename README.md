@@ -20,9 +20,13 @@ Management Sales https://github.com/YogiTan00/Reseller
 ### Grpc
 1. Sync Go Modules -> `go mod tidy`
 2. Download GRPC Ecosystem Nodules -> \
-   `go get github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway`\
-   `go get google.golang.org/protobuf/cmd/protoc-gen-go`\
-   `go get google.golang.org/grpc/cmd/protoc-gen-go-grpc`
+   `go install google.golang.org/protobuf/cmd/protoc-gen-go@latest`\
+   `go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest`\
+   `go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest` \
+   Check \
+   `where protoc-gen-go`\
+   `where protoc-gen-go-grpc`\
+   `where protoc-gen-grpc-gateway`
 3. Install GRPC Ecosystem Modules -> \
    `go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway`\
    `go install google.golang.org/protobuf/cmd/protoc-gen-go`\
