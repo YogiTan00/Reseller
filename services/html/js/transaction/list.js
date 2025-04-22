@@ -2,10 +2,8 @@ let currentPage = 1; // Keep track of the current page
 const limit = 10; // Set the number of transactions per page
 let orderBy = 'created_at';
 let sort = 'asc';
-let startDate='';
-let endDate='';
 
-export function getTransactionList(page = 1, q = '') {
+export function getTransactionList(page = 1, q = '',startDate='',endDate='') {
     const input = document.getElementById('date-range');
     if (input && input.value) {
         const dates = input.value.split(' - ');
@@ -84,6 +82,18 @@ export function getTransactionList(page = 1, q = '') {
         .catch(error => {
             console.error('Error fetching transactions:', error);
         });
+}
+
+// Add event listeners for pagination, filtering, and sorting
+const dateRangeBtn = document.getElementById('date-range');
+if (dateRangeBtn) {
+    $(dateRangeBtn).on('apply.daterangepicker', function(ev, picker) {
+        const startDate = picker.startDate.format('YYYY-MM-DD');
+        const endDate = picker.endDate.format('YYYY-MM-DD');
+        const search = document.getElementById('q')?.value || "";
+        currentPage = 1;
+        getTransactionList(currentPage, search, startDate, endDate);
+    });
 }
 
 // Add event listeners for pagination, filtering, and sorting

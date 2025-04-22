@@ -43,6 +43,15 @@ function DateRangePickerById() {
                 format: 'YYYY-MM-DD'
             }
         });
+
+        $(input).on('apply.daterangepicker', function(ev, picker) {
+            input.value = picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD');
+        });
+
+
+        $(input).on('cancel.daterangepicker', function(ev, picker) {
+            input.value = '';
+        });
     }
 }
 
