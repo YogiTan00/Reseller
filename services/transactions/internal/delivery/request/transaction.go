@@ -52,6 +52,15 @@ func UpdateTransactionRequest(req *transactionPb.Transaction) *entity.Transactio
 }
 
 func NewGeneralFilter(req *transactionPb.GeneralFilter) *entity.GeneralFilter {
+	now := time.Now()
+	startRaw, _ := time.Parse(time.DateOnly, req.StartDate)
+	endRaw, _ := time.Parse(time.DateOnly, req.EndDate)
+	if startRaw.IsZero() && endRaw.IsZero() {
+		startRaw = now
+		endRaw = now
+	}
+	startDate := time.Date(startRaw.Year(), startRaw.Month(), startRaw.Day(), 0, 0, 0, 0, time.UTC)
+	endDate := time.Date(endRaw.Year(), endRaw.Month(), endRaw.Day(), 23, 59, 59, 0, time.UTC)
 	return &entity.GeneralFilter{
 		Q: req.GetQ(),
 		Option: &entity.GeneralFilterOption{
@@ -59,6 +68,10 @@ func NewGeneralFilter(req *transactionPb.GeneralFilter) *entity.GeneralFilter {
 			Limit:   int(req.GetLimit()),
 			Offset:  int(req.GetOffset()),
 			Sort:    req.GetSort(),
+		},
+		DateRange: &entity.DateRange{
+			StartDate: startDate,
+			EndDate:   endDate,
 		},
 	}
 

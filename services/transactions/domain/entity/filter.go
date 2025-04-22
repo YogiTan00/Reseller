@@ -5,6 +5,7 @@ type GeneralFilter struct {
 	IsDeleted bool
 	Q         string
 	Option    *GeneralFilterOption
+	DateRange *DateRange
 }
 
 type GeneralFilterOption struct {
