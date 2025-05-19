@@ -12,6 +12,12 @@ service TransactionService {
         body: "*"
       };
     }
+    rpc CreateMultipleTransaction(MultipleTransaction) returns (GeneralResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/transaction/create/multiple"
+        body: "*"
+      };
+    }
     rpc DeleteTransaction(GeneralIdRequest) returns (GeneralResponse) {
       option (google.api.http) = {
         post: "/api/v1/transaction/delete/{id}"
@@ -40,7 +46,9 @@ message TransactionList{
   repeated Transaction data = 1;
   Metadata meta = 2;
 }
-
+message MultipleTransaction{
+  repeated Transaction data = 1;
+}
 message Transaction {
   string id = 1;
   string id_name = 2;

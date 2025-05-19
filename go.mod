@@ -3,6 +3,7 @@ module github.com/YogiTan00/Reseller
 go 1.23.0
 
 require (
+	github.com/atotto/clipboard v0.1.4
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/golang-migrate/migrate/v4 v4.17.1
 	github.com/google/uuid v1.6.0

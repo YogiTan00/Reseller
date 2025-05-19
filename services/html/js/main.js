@@ -13,7 +13,10 @@ if (imageInput) {
 
 // Get the current date in yyyy-mm-dd format
 const today = new Date().toISOString().split('T')[0];
-document.getElementById('dateNow').value = today;
+const dateInput = document.getElementById('dateNow');
+if (dateInput !== null) {
+    dateInput.value = today;
+}
 
 // Get the input and buttons
 const unitInput = document.getElementById('unit');
@@ -55,6 +58,30 @@ function DateRangePickerById() {
     }
 }
 
+export async function loadHTML(id, url) {
+    const container = document.getElementById(id);
+    if (!container) {
+        console.warn(`Element with id "${id}" not found.`);
+        return;
+    }
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Failed to load ${url}: ${res.statusText}`);
+        const html = await res.text();
+        container.innerHTML = html;
+    } catch (error) {
+        container.innerHTML = `<p class="text-danger">${error.message}</p>`;
+    }
+}
+
+function loadAll() {
+    loadHTML('create-single-transaction', '/html/transaction/single.html');
+    loadHTML('create-multiple-transaction', '/html/transaction/multiple.html');
+}
+
+
+window.addEventListener('DOMContentLoaded', loadAll);
 document.addEventListener("DOMContentLoaded", function () {
     DateRangePickerById();
 });

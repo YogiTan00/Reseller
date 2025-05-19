@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Single Transaction</title>
+    <script src="/html/js/transaction/create.js"></script>
+    <script src="/html/js/main.js"></script>
+</head>
+<body>
+    <!-- Import the main.js file as a module -->
+    <script type="module" src="/html/js/transaction/dropdown.js"></script>
+    <form id="transaction-form" class="row g-3"  method="post">
+      <div class="col-md-6">
+        <label for="idName" class="form-label">Product</label>
+        <select id="idName" class="form-select" required>
+          <option value="" disabled selected>Select a Product</option>
+        </select>
+        <input type="hidden" id="productName">
+      </div>
+      <div class="col-md-1">
+        <label for="returnItem" class="form-label">Return</label>
+        <select id="returnItem" class="form-control">
+          <option value="true">Yes</option>
+          <option value="false" selected>No</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="dateNow" class="form-label">Date</label>
+        <input type="date" id="dateNow" name="dateNow" class="form-control" required>
+      </div>
+      <div class="col-sm-1">
+        <label for="unit" class="form-label">Unit</label>
+        <input type="number" id="unit" class="form-control text-center" value="1" min="0" required>
+      </div>
+      <div>
+        <label for="description" class="form-label">Description</label>
+        <input type="text" id="description" class="form-control">
+      </div>
+      <button type="submit" id="create-transaction" class="btn btn-primary">Create Transaction</button>
+    </form>
+
+</body>
+</html>

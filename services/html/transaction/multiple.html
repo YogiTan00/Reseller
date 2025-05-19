@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Multiple Transaction</title>
+  <script src="/html/js/transaction/create.js"></script>
+  <script src="/html/js/main.js"></script>
+</head>
+<body>
+    <form id="transaction-multiple-form" class="row g-3"  method="post">
+      <div id="transaction-items">
+        <div class="transaction-item row g-3 mb-3">
+          <!-- Import the main.js file as a module -->
+          <script type="module" src="/html/js/transaction/dropdown.js"></script>
+          <div class="col-md-5">
+            <label for="idNameMultiple" class="form-label">Product</label>
+            <select id="idNameMultiple" class="form-select" required>
+              <option value="" disabled selected>Select a Product</option>
+            </select>
+            <input type="hidden" id="productNameMultiple">
+          </div>
+          <div class="col-md-1">
+            <label class="form-label">Return</label>
+            <select class="form-control return-item">
+              <option value="true">Yes</option>
+              <option value="false" selected>No</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control date-now" required>
+          </div>
+          <div class="col-sm-1">
+            <label class="form-label">Unit</label>
+            <input type="number" class="form-control unit" value="1" min="0" required>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-control description">
+          </div>
+          <div class="col-md-1">
+            <!-- Tombol untuk tambah baris baru -->
+            <ul>
+              <li class="accordion-button">+</li>
+              <li class="accordion-button">-</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Submit semua transaksi -->
+      <button type="button" id="create-multiple-transaction" class="btn btn-primary">Create Multiple</button>
+    </form>
+
+</body>
+</html>

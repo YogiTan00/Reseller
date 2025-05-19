@@ -53,77 +53,50 @@
     <div class="col-2"></div>
         <div class="container mt-5 col-8">
 
-            <!-- Import the main.js file as a module -->
-            <script type="module" src="/html/js/transaction/dropdown.js"></script>
-
             <!-- Accordion for creating product -->
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <!-- No text, only an icon or custom style can go here -->
-                            <span class="me-auto">Create</span>
-                        </button>
+                        <div class="d-flex w-100">
+                            <button aria-expanded="false" aria-controls="collapseOne" data-bs-target="#collapseOne" data-bs-toggle="collapse" type="button" class="accordion-button w-50 collapsed" style=background-color:#eef8ff>
+                                <span class="me-auto">Single</span>
+                            </button>
+                            <button aria-expanded="false" aria-controls="collapseMultiple" data-bs-target="#collapseMultiple" data-bs-toggle="collapse" type="button" class="accordion-button w-50 collapsed" style=background-color:#eef8ff>
+                                <span class="me-auto">Multiple</span>
+                            </button>
+                        </div>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <form id="transaction-form" class="row g-3"  method="post">
-                                <div class="col-md-6">
-                                    <label for="idName" class="form-label">Product</label>
-                                    <select id="idName" class="form-select" required>
-                                        <option value="" disabled selected>Select a Product</option>
-                                    </select>
-                                    <input type="hidden" id="productName">
-                                </div>
-                                <div class="col-md-1">
-                                    <label for="returnItem" class="form-label">Return</label>
-                                    <select id="returnItem" class="form-control">
-                                        <option value="true">Yes</option>
-                                        <option value="false" selected>No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="dateNow" class="form-label">Date</label>
-                                    <input type="date" id="dateNow" name="dateNow" class="form-control" required>
-                                </div>
-                                <div class="col-sm-1">
-                                    <label for="unit" class="form-label">Unit</label>
-                                        <input type="number" id="unit" class="form-control text-center" value="1" min="0" required>
-                                </div>
-                                <div>
-                                    <label for="description" class="form-label">Description</label>
-                                    <input type="text" id="description" class="form-control">
-                                </div>
-                                <button type="submit" id="create-transaction" class="btn btn-primary">Create Transaction</button>
-                            </form>
-                        </div>
+                        <div class="accordion-body" id="create-single-transaction"> </div>
+                    </div>
+                    <div id="collapseMultiple" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body" id="create-multiple-transaction"></div>
                     </div>
                 </div>
-                <script type="module"  src="/html/js/transaction/create.js"></script>
-
-                <!--List of Products-->
-                <div class="filter-container">
-                    <label for="date-range" style="cursor: pointer">
-                        <img src="/html/images/calendar.svg" alt="Select date" width="20" height="20">
-                    </label>
-                    <input id="date-range" class="visually-hidden"/>
-                    <label for="q" class="filter-label">Search:</label>
-                    <input type="text" id="q" placeholder="Search products...">
-                    <button id="apply-filter">Apply Filter</button>
-                    <button id="sort">Sort By Latest</button>
-                </div>
-                <ul id="transaction-list" class="list-group"></ul>
-                <!-- Pagination Controls -->
-                <div class="pagination-controls">
-                    <button id="prev-page" disabled>Previous</button>
-                    <span id="current-page">1</span>
-                    <button id="next-page">Next</button>
-                </div>
-
-                <!-- Import the list.js file as a module -->
-                <script type="module" src="/html/js/transaction/list.js"></script>
-                <script type="module" src="/html/js/main.js"></script>
             </div>
+
+            <!--List of Products-->
+            <div class="filter-container">
+                <label for="date-range" style="cursor: pointer">
+                    <img src="/html/images/calendar.svg" alt="Select date" width="20" height="20">
+                </label>
+                <input id="date-range" class="visually-hidden"/>
+                <label for="q" class="filter-label">Search:</label>
+                <input type="text" id="q" placeholder="Search products...">
+                <button id="apply-filter">Apply Filter</button>
+                <button id="sort">Sort By Latest</button>
+            </div>
+            <ul id="transaction-list" class="list-group"></ul>
+            <!-- Pagination Controls -->
+            <div class="pagination-controls">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="current-page">1</span>
+                <button id="next-page">Next</button>
+            </div>
+
+            <!-- Import the list.js file as a module -->
+            <script type="module" src="/html/js/transaction/list.js"></script>
+            <script type="module" src="/html/js/main.js"></script>
         </div>
     <div class="col-2"></div>
 </div>
