@@ -1,57 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <title>Home</title>
+    <title>Reseller Management</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/html/css/library/bootstrap.min.css" >
+    <link rel="stylesheet" href="/html/css/library/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-top: 40px;
+            padding: 60px 40px;
+        }
+        .hero-title {
+            color: #667eea;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .feature-icon i {
+            font-size: 28px;
+            color: white;
+        }
+        .feature-title {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .feature-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .btn-feature {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-feature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+        .stats-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
     <script src="/html/js/library/bootstrap.min.js"></script>
 </head>
 <body>
-<!--Header-->
-<div class="row col-12">
-    <div class="col-2"></div>
-    <div class="p-5 bg-primary text-white text-center col-8">
-        <h1>My First Bootstrap 5 Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
-    </div>
-    <div class="col-2"></div>
-</div>
-<!--Navbar-->
-<div class="row col-12">
-    <div class="col-2"></div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark col-8">
-            <div class="container-fluid">
-                <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-shop"></i> Reseller Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/">Logo</a>
+                        <a class="nav-link active" href="/">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/product">Product</a>
+                        <a class="nav-link" href="/product">Produk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/transaction">Transaction</a>
+                        <a class="nav-link" href="/transaction">Transaksi</a>
                     </li>
                 </ul>
             </div>
-        </nav>
-    <div class="col-2"></div>
-</div>
-<!--Page-->
-<div class="row col-12">
-    <div class="col-2"></div>
-        <div class="container mt-5 col-8">
         </div>
-    <div class="col-2"></div>
-</div>
-<!--Footer-->
-<div class="row col-12">
-    <div class="col-2"></div>
-        <div class="mt-5 p-4 bg-dark text-white text-center col-8">
-    <p>Footer</p>
-</div>
-    <div class="col-2"></div>
-</div>
+    </nav>
 
+    <div class="container">
+        <div class="hero-section">
+            <div class="text-center">
+                <h1 class="hero-title">Selamat Datang di Sistem Manajemen Reseller</h1>
+                <p class="hero-subtitle">Kelola produk dan transaksi penjualan Anda dengan mudah dan efisien</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <h4 class="feature-title">Kelola Produk</h4>
+                        <p class="feature-desc">Tambah, edit, dan hapus produk dengan mudah</p>
+                        <a href="/product" class="btn btn-feature">
+                            <i class="bi bi-arrow-right"></i> Kelola Produk
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+                        <h4 class="feature-title">Catat Transaksi</h4>
+                        <p class="feature-desc">Catat penjualan tunggal atau banyak sekaligus</p>
+                        <a href="/transaction" class="btn btn-feature">
+                            <i class="bi bi-arrow-right"></i> Catat Transaksi
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h4 class="feature-title">Pantau Penjualan</h4>
+                        <p class="feature-desc">Lihat riwayat dan statistik penjualan Anda</p>
+                        <a href="/transaction" class="btn btn-feature">
+                            <i class="bi bi-arrow-right"></i> Lihat Laporan
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="text-secondary">Statistik Cepat</h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <div class="stats-number">0</div>
+                        <div class="stats-label">Total Produk</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <div class="stats-number">0</div>
+                        <div class="stats-label">Total Transaksi</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <div class="stats-number">Rp 0</div>
+                        <div class="stats-label">Total Pendapatan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Reseller Management System. Semua hak dilindungi.</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,43 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Create Single Transaction</title>
-    <script src="/html/js/transaction/create.js"></script>
+    <title>Transaksi Tunggal</title>
+    <style>
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .row {
+            margin: 0;
+        }
+        .col-md-6, .col-md-5, .col-md-2, .col-md-1 {
+            padding: 0 8px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
     <script src="/html/js/main.js"></script>
 </head>
 <body>
-    <!-- Import the main.js file as a module -->
-    <script type="module" src="/html/js/transaction/dropdown.js"></script>
-    <form id="transaction-form" class="row g-3"  method="post">
-      <div class="col-md-6">
-        <label for="idName" class="form-label">Product</label>
-        <select id="idName" class="form-select" required>
-          <option value="" disabled selected>Select a Product</option>
-        </select>
-        <input type="hidden" id="productName">
-      </div>
-      <div class="col-md-1">
-        <label for="returnItem" class="form-label">Return</label>
-        <select id="returnItem" class="form-control">
-          <option value="true">Yes</option>
-          <option value="false" selected>No</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="dateNow" class="form-label">Date</label>
-        <input type="date" id="dateNow" name="dateNow" class="form-control" required>
-      </div>
-      <div class="col-sm-1">
-        <label for="unit" class="form-label">Unit</label>
-        <input type="number" id="unit" class="form-control text-center" value="1" min="0" required>
-      </div>
-      <div>
-        <label for="description" class="form-label">Description</label>
-        <input type="text" id="description" class="form-control">
-      </div>
-      <button type="submit" id="create-transaction" class="btn btn-primary">Create Transaction</button>
+    <form id="transaction-form" class="row g-3">
+        <div class="col-12">
+            <h2 class="mb-4">Transaksi Tunggal</h2>
+            
+            <div class="form-group">
+                <label for="idName" class="form-label">Pilih Produk</label>
+                <select class="form-select" id="idName" name="idName" required>
+                    <option value="" disabled selected>-- Pilih Produk --</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="productName" class="form-label">Nama Produk</label>
+                <input type="text" class="form-control" id="productName" name="productName" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity" class="form-label">Jumlah</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="price" class="form-label">Harga</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="total" class="form-label">Total</label>
+                <input type="number" class="form-control" id="total" name="total" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="date" class="form-label">Tanggal</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            
+            <div class="action-buttons">
+                <button type="button" class="btn btn-secondary me-2" id="cancel-btn">
+                    <i class="bi bi-x-circle"></i> Batal
+                </button>
+                <button type="submit" id="create-transaction" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Simpan Transaksi
+                </button>
+            </div>
+        </div>
     </form>
 
+    <script>
+        console.log('Dropdown inline script loaded');
+
+        fetch('http://localhost:8080/api/v1/product/list', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Product list response status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Product list data:', data);
+            console.log('Number of products:', data.data ? data.data.length : 0);
+            window.allProducts = data.data || [];
+            
+            const idNameSelect = document.getElementById('idName');
+            if (idNameSelect) {
+                idNameSelect.innerHTML = '';
+                const defaultOption = document.createElement("option");
+                defaultOption.value = '';
+                defaultOption.text = '-- Pilih Produk --';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                idNameSelect.appendChild(defaultOption);
+
+                window.allProducts.forEach(product => {
+                    const option = document.createElement("option");
+                    option.value = product.id;
+                    option.text = product.name + ' (' + product.type_size + ')';
+                    idNameSelect.appendChild(option);
+                });
+
+                idNameSelect.addEventListener("change", function() {
+                    const selectedId = idNameSelect.value;
+                    const selectedProduct = window.allProducts.find(product => product.id === selectedId);
+                    if (selectedProduct) {
+                        const productNameInput = document.getElementById('productName');
+                        if (productNameInput) {
+                            productNameInput.value = selectedProduct.name;
+                        }
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching product dropdown:', error);
+            alert('Gagal memuat daftar produk. Silakan refresh halaman.');
+        });
+    </script>
 </body>
 </html>

@@ -21,10 +21,13 @@ func ToEntityTransaction(p *models.Transaction) *entity.TransactionDto {
 	return &entity.TransactionDto{
 		Id:          p.Id,
 		IdName:      p.IdName,
+		Name:        p.Product.Name,
 		ReturnItem:  p.Return,
 		SalesDate:   p.SalesDate,
 		Unit:        p.Unit,
 		Description: p.Description,
+		CreatedAt:   p.CreatedAt,
+		UpdatedAt:   p.UpdatedAt,
 	}
 }
 

@@ -1,113 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <title>Transaction</title>
+    <title>Manajemen Transaksi</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/html/css/library/bootstrap.min.css" >
-    <link rel="stylesheet" type="text/css" href="/html/css/transaction/list.css">
-    <link rel="stylesheet" type="text/css" href="/html/css/transaction/style.css">
+    <link rel="stylesheet" type="text/css" href="/html/css/library/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/html/css/library/daterangepicker.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 40px;
+        }
+        .page-title {
+            color: #667eea;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .accordion-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+        .accordion-button:not(.collapsed) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .filter-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        .filter-container label {
+            font-weight: 600;
+            color: #333;
+        }
+        .filter-container input {
+            flex: 1;
+            min-width: 200px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 10px 15px;
+        }
+        .filter-container button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-filter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-filter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-sort {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+        .btn-sort:hover {
+            background: #667eea;
+            color: white;
+        }
+        .date-picker-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .date-picker-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        #transaction-list {
+            margin-top: 20px;
+        }
+        #transaction-list li {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        #transaction-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        #transaction-list img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        #transaction-list h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        #transaction-list p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        #transaction-list .price {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .transaction-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .badge-return {
+            background: #dc3545;
+            color: white;
+        }
+        .badge-sale {
+            background: #28a745;
+            color: white;
+        }
+        .transaction-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+        .btn-action {
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .btn-edit {
+            background: #ffc107;
+            border: none;
+            color: #333;
+        }
+        .btn-edit:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+        }
+        .btn-delete {
+            background: #dc3545;
+            border: none;
+            color: white;
+        }
+        .btn-delete:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .pagination-controls button {
+            padding: 10px 25px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .pagination-controls button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .pagination-controls button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .pagination-controls span {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+    </style>
     <script src="/html/js/library/axios.min.js"></script>
     <script src="/html/js/library/bootstrap.min.js"></script>
-
-
-    <!-- Date Range -->
-    <link rel="stylesheet" href="/html/css/library/bootstrap-icons.css">
-    <link rel="stylesheet" href="/html/css/library/daterangepicker.css" />
     <script src="/html/js/library/jquery.min.js"></script>
     <script src="/html/js/library/moment.min.js"></script>
     <script src="/html/js/library/daterangepicker.js"></script>
 </head>
 <body>
-<!--Header-->
-<div class="row col-12">
-    <div class="col-2"></div>
-    <div class="p-5 bg-primary text-white text-center col-8">
-        <h1>My First Bootstrap 5 Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
-    </div>
-    <div class="col-2"></div>
-</div>
-<!--Navbar-->
-<div class="row col-12">
-    <div class="col-2"></div>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark col-8">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Logo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/product">Product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/transaction">Transaction</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-shop"></i> Reseller Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product">Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/transaction">Transaksi</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <div class="col-2"></div>
-</div>
-<!--Page-->
-<div class="row col-12">
-    <div class="col-2"></div>
-        <div class="container mt-5 col-8">
 
-            <!-- Accordion for creating product -->
+    <div class="container">
+        <div class="main-content">
+            <h1 class="page-title">Manajemen Transaksi</h1>
+
             <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
+                <div class="accordion-item border-0 shadow-sm" style="border-radius: 15px; overflow: hidden;">
                     <h2 class="accordion-header" id="headingOne">
                         <div class="d-flex w-100">
-                            <button aria-expanded="false" aria-controls="collapseOne" data-bs-target="#collapseOne" data-bs-toggle="collapse" type="button" class="accordion-button w-50 collapsed" style=background-color:#eef8ff>
-                                <span class="me-auto">Single</span>
+                            <button class="accordion-button w-50" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                <i class="bi bi-plus-circle me-2"></i> Transaksi Tunggal
                             </button>
-                            <button aria-expanded="false" aria-controls="collapseMultiple" data-bs-target="#collapseMultiple" data-bs-toggle="collapse" type="button" class="accordion-button w-50 collapsed" style=background-color:#eef8ff>
-                                <span class="me-auto">Multiple</span>
+                            <button class="accordion-button w-50 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMultiple" aria-expanded="false" aria-controls="collapseMultiple">
+                                <i class="bi bi-plus-circle me-2"></i> Transaksi Banyak
                             </button>
                         </div>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body" id="create-single-transaction"> </div>
+                        <div class="accordion-body p-4">
+                            <div id="create-single-transaction"></div>
+                        </div>
                     </div>
                     <div id="collapseMultiple" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body" id="create-multiple-transaction"></div>
+                        <div class="accordion-body p-4">
+                            <div id="create-multiple-transaction"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!--List of Products-->
             <div class="filter-container">
-                <label for="date-range" style="cursor: pointer">
-                    <img src="/html/images/calendar.svg" alt="Select date" width="20" height="20">
+                <label class="date-picker-btn">
+                    <i class="bi bi-calendar3"></i> Pilih Tanggal
                 </label>
-                <input id="date-range" class="visually-hidden"/>
-                <label for="q" class="filter-label">Search:</label>
-                <input type="text" id="q" placeholder="Search products...">
-                <button id="apply-filter">Apply Filter</button>
-                <button id="sort">Sort By Latest</button>
+                <input id="date-range" class="visually-hidden" />
+                <label for="q" style="font-weight: 600; color: #333;">
+                    <i class="bi bi-search"></i> Cari Transaksi:
+                </label>
+                <input type="text" id="q" placeholder="Ketik nama produk...">
+                <button id="apply-filter" class="btn btn-filter">
+                    <i class="bi bi-funnel"></i> Filter
+                </button>
+                <button id="sort" class="btn btn-sort">
+                    <i class="bi bi-sort-down"></i> Terbaru
+                </button>
             </div>
+
             <ul id="transaction-list" class="list-group"></ul>
-            <!-- Pagination Controls -->
+
             <div class="pagination-controls">
-                <button id="prev-page" disabled>Previous</button>
-                <span id="current-page">1</span>
-                <button id="next-page">Next</button>
+                <button id="prev-page" disabled>
+                    <i class="bi bi-chevron-left"></i> Sebelumnya
+                </button>
+                <span id="current-page">Halaman 1</span>
+                <button id="next-page">Selanjutnya <i class="bi bi-chevron-right"></i></button>
             </div>
 
-            <!-- Import the list.js file as a module -->
-            <script type="module" src="/html/js/transaction/list.js"></script>
-            <script type="module" src="/html/js/main.js"></script>
+            <script type="module" src="/html/js/transaction/list.js?v=5"></script>
+            <script type="module" src="/html/js/main.js?v=5"></script>
         </div>
-    <div class="col-2"></div>
-</div>
-<!--Footer-->
-<div class="row col-12">
-    <div class="col-2"></div>
-        <div class="mt-5 p-4 bg-dark text-white text-center col-8">
-    <p>Footer</p>
-</div>
-    <div class="col-2"></div>
-</div>
+    </div>
 
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Reseller Management System. Semua hak dilindungi.</p>
+        </div>
+    </footer>
 </body>
 </html>
